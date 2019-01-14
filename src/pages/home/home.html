@@ -1,14 +1,21 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+  <ion-navbar> <ion-title> Ionic Catter App </ion-title> </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list>
+    <li
+      *ngFor="let item of picArray; let i = index"
+      class="my-card bottom-margin"
+      [ngClass]="{ 'top-margin': i !== 0 }"
+    >
+      <img
+        [src]="item.thumbnail"
+        class="my-card-pic"
+        (click)="viewPhoto(item.original)"
+      />
+      <p class="pic-title">Catter {{ i + 1 }} 🐱</p>
+      <p class="pic-details">{{ item.details }}</p>
+    </li>
+  </ion-list>
 </ion-content>
