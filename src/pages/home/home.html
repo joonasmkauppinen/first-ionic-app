@@ -1,21 +1,20 @@
-<ion-header>
-  <ion-navbar> <ion-title> Ionic Catter App </ion-title> </ion-navbar>
-</ion-header>
+<!-- <ion-header>
+  <ion-navbar> <ion-title> School API Test </ion-title> </ion-navbar>
+</ion-header> -->
 
 <ion-content padding>
+  <h1 class="header">Testing school API</h1>
   <ion-list>
-    <li
-      *ngFor="let item of picArray; let i = index"
-      class="my-card bottom-margin"
-      [ngClass]="{ 'top-margin': i !== 0 }"
-    >
+    <li *ngFor="let item of mediaArray" class="post-item">
       <img
-        [src]="item.thumbnail"
-        class="my-card-pic"
-        (click)="viewPhoto(item.original)"
+        [src]="item.url"
+        class="post-item-pic"
+        (click)="viewPhoto(item.url, item.title)"
       />
-      <p class="pic-title">Catter {{ i + 1 }} 🐱</p>
-      <p class="pic-details">{{ item.details }}</p>
+      <p class="post-title">{{ item.title }}</p>
+      <p class="post-username">{{ getUsername(item.user_id) }}</p>
+      <p class="post-email">{{ getEmali(item.user_id) }}</p>
+      <p class="post-description">{{ item.description }}</p>
     </li>
   </ion-list>
 </ion-content>
