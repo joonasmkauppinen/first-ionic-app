@@ -1,20 +1,16 @@
-<!-- <ion-header>
-  <ion-navbar> <ion-title> School API Test </ion-title> </ion-navbar>
-</ion-header> -->
+<ion-header>
+  <ion-navbar> <ion-title> HTTP - A </ion-title> </ion-navbar>
+</ion-header>
 
 <ion-content padding>
-  <h1 class="header">Testing school API</h1>
   <ion-list>
-    <li *ngFor="let item of mediaArray" class="post-item">
-      <img
-        [src]="item.url"
-        class="post-item-pic"
-        (click)="viewPhoto(item.url, item.title)"
-      />
-      <p class="post-title">{{ item.title }}</p>
-      <p class="post-username">{{ getUsername(item.user_id) }}</p>
-      <p class="post-email">{{ getEmali(item.user_id) }}</p>
-      <p class="post-description">{{ item.description }}</p>
-    </li>
+    <ion-item *ngFor="let item of dataArray">
+      <ion-thumbnail item-start>
+        <img [src]="item.thumbnail">
+      </ion-thumbnail>
+      <h2>{{ item.title }}</h2>
+      <p>{{ item.details }}</p>
+      <button ion-button clear item-end (click)="onViewImage(item.original)">View</button>
+    </ion-item>
   </ion-list>
 </ion-content>
