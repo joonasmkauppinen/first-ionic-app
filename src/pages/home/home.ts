@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Pic } from '../../app/interfaces/pic';
 
-import testdata from './data';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { HttpClient } from '@angular/common/http';
+import { MediaResponse } from '../../app/interfaces/media-response';
 
 @Component({
   selector: 'page-home',
@@ -10,12 +11,23 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 })
 export class HomePage implements OnInit {
 
-  dataArray: Pic[];
+  baseUrl = 'http://media.mw.metropolia.fi/wbma/media';
+  mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
+  mediaArray: Pic[];
 
-  constructor(private photoViewer: PhotoViewer) {}
+  constructor(private http: HttpClient, private photoViewer: PhotoViewer) {}
 
   ngOnInit() {
-    this.dataArray = testdata;
+    this.http.get<any>(this.baseUrl).subscribe((res: MediaResponse[]) => {
+      const data = res;
+      this.mediaArray = data.map(item => {
+        return {
+          url: this.mediaUrl + item.filename,
+          title: item.title,
+          details: item.description
+        };
+      });
+    });
   }
 
   onViewImage(url: string) {
