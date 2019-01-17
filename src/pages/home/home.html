@@ -1,16 +1,21 @@
 <ion-header>
-  <ion-navbar> <ion-title> Ionic Providers </ion-title> </ion-navbar>
+  <ion-navbar> <ion-title> Digitransit </ion-title> </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <h2 style="text-align: center">Enter stop name below to see which routes go to that stop.</h2>
   <ion-list>
-    <ion-item *ngFor="let item of dataArray">
-      <ion-thumbnail item-start>
-        <img [src]="item.thumbnail">
-      </ion-thumbnail>
-      <h2>{{ item.title }}</h2>
-      <p>{{ item.details }}</p>
-      <button ion-button clear item-end (click)="onViewImage(item.original)">View</button>
+    <ion-item>
+      <ion-label stacked>Stop name</ion-label>
+      <ion-input #stopName type="text" placeholder="eg. 'Leppävaaran asema' or 'E1012'"></ion-input>
+    </ion-item>
+    <button ion-button block (click)="onSearchRoutes(stopName.value)">SEARCH</button>
+  </ion-list>
+
+  <ion-list>
+    <ion-item *ngFor="let routeInfo of routesArray; let i = index">
+      <h2>{{ routeInfo.route.longName }}</h2>
+      <p>{{ routeInfo.route.mode }} - {{ routeInfo.route.shortName }}</p>
     </ion-item>
   </ion-list>
 </ion-content>

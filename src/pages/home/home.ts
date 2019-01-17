@@ -1,48 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Pic } from '../../app/interfaces/pic';
 
-import { PhotoViewer } from '@ionic-native/photo-viewer';
-import { MediaProvider } from '../../providers/media/media';
-import { MediaResponse } from '../../app/interfaces/media-response';
+import { DigitransitProvider } from '../../providers/digitransit/digitransit';
+import { Stops } from '../../app/interfaces/Stops';
+import { RouteInfo } from '../../app/interfaces/RouteInfo';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnInit {
+export class HomePage {
 
   mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
   dataArray: Pic[];
+  routesArray: RouteInfo[];
 
   constructor(
-    private photoViewer: PhotoViewer,
-    private mediaProvider: MediaProvider
+    private digitransitProvider: DigitransitProvider
   ) {}
 
-  ngOnInit() {
-    this.mediaProvider.getAllMedia().subscribe((res: MediaResponse[]) => {
+  onSearchRoutes(stopName: string) {
+    this.digitransitProvider.getRoutesGoingToStop(stopName).subscribe((res: any) => {
       console.log(res);
-      this.dataArray = res.map(item => {
-        const fileOriginal = this.mediaUrl + item.filename;
-        const fileThumnail = this.mediaUrl + this.changeToThumnail(item.filename);
-        return {
-          original: fileOriginal,
-          thumbnail: fileThumnail,
-          title: item.title,
-          details: item.description
-        };
-      });
+      const data = res['data'];
+      const stops: Stops = data['stops'];
+      console.log('Stops: ', stops);
+      const routesInfo = stops[0];
+      const routes = routesInfo['patterns'];
+      console.log('Rouets: ', routes);
+      this.routesArray = routes;
     });
-  }
-
-  changeToThumnail(filename) {
-    const slicedFilename = filename.split('.');
-    console.log(slicedFilename);
-    const thumbnail = `${slicedFilename[0]}-tn160.png`;
-    console.log(thumbnail);
-    return thumbnail;
-  }
-  onViewImage(url: string) {
-    this.photoViewer.show(url);
   }
 }

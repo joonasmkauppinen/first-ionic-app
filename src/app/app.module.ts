@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { HttpClientModule } from '@angular/common/http';
 import { MediaProvider } from '../providers/media/media';
+import { DigitransitProvider } from '../providers/digitransit/digitransit';
 
 @NgModule({
   declarations: [MyApp, HomePage],
@@ -20,7 +21,8 @@ import { MediaProvider } from '../providers/media/media';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     PhotoViewer,
-    MediaProvider
+    MediaProvider,
+    DigitransitProvider
   ]
 })
 export class AppModule {}
