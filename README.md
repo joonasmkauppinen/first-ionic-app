@@ -5,7 +5,7 @@
 2. [HTTP Client](https://github.com/joonasmkauppinen/first-ionic-app/tree/http-a)
    - [http-a](https://github.com/joonasmkauppinen/first-ionic-app/tree/http-a)
    - **[[http-b]](https://github.com/joonasmkauppinen/first-ionic-app/tree/http-b)**
-3. [Providers]()
+3. [Providers](https://github.com/joonasmkauppinen/first-ionic-app/tree/ionic-providers)
 4. [Routing/Login]()
 5. [Pipe]()
 6. [Forms]()
