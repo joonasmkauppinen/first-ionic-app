@@ -3,8 +3,6 @@
 ## Assignment list
 1. [First App](https://github.com/joonasmkauppinen/first-ionic-app/tree/master)
 2. [HTTP Client](https://github.com/joonasmkauppinen/first-ionic-app/tree/http-a)
-   - [http-a](https://github.com/joonasmkauppinen/first-ionic-app/tree/http-a)
-   - [http-b](https://github.com/joonasmkauppinen/first-ionic-app/tree/http-b)
 3. [Providers](https://github.com/joonasmkauppinen/first-ionic-app/tree/ionic-providers)
    - **[[ionic-providers]](https://github.com/joonasmkauppinen/first-ionic-app/tree/ionic-providers)**
    - [ionic-providers-digitransit]()
