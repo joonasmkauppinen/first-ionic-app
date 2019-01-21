@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Pic } from '../../app/interfaces/pic';
+import { Component } from '@angular/core';
 
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { MediaProvider } from '../../providers/media/media';
@@ -9,40 +8,29 @@ import { MediaResponse } from '../../app/interfaces/media-response';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnInit {
-
+export class HomePage {
   mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
-  dataArray: Pic[];
+  dataArray: MediaResponse[];
 
   constructor(
     private photoViewer: PhotoViewer,
     private mediaProvider: MediaProvider
   ) {}
 
-  ngOnInit() {
+  ionViewDidLoad() {
     this.mediaProvider.getAllMedia().subscribe((res: MediaResponse[]) => {
-      console.log(res);
-      this.dataArray = res.map(item => {
-        const fileOriginal = this.mediaUrl + item.filename;
-        const fileThumnail = this.mediaUrl + this.changeToThumnail(item.filename);
-        return {
-          original: fileOriginal,
-          thumbnail: fileThumnail,
-          title: item.title,
-          details: item.description
-        };
+      this.dataArray = res;
+      this.dataArray.forEach(item => {
+        this.mediaProvider
+          .getMediaById(item.file_id.toString())
+          .subscribe((singleRes: MediaResponse) => {
+            item.thumbnails = singleRes.thumbnails;
+          });
       });
     });
   }
 
-  changeToThumnail(filename) {
-    const slicedFilename = filename.split('.');
-    console.log(slicedFilename);
-    const thumbnail = `${slicedFilename[0]}-tn160.png`;
-    console.log(thumbnail);
-    return thumbnail;
-  }
   onViewImage(url: string) {
-    this.photoViewer.show(url);
+    this.photoViewer.show(this.mediaUrl + url);
   }
 }

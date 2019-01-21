@@ -1,16 +1,16 @@
 <ion-header>
-  <ion-navbar> <ion-title> Ionic Providers </ion-title> </ion-navbar>
+  <ion-navbar> <ion-title> Ionic Providers - Task B </ion-title> </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list>
     <ion-item *ngFor="let item of dataArray">
       <ion-thumbnail item-start>
-        <img [src]="item.thumbnail">
+        <img *ngIf="item.thumbnails" [src]="mediaUrl + item.thumbnails['160']">
       </ion-thumbnail>
       <h2>{{ item.title }}</h2>
-      <p>{{ item.details }}</p>
-      <button ion-button clear item-end (click)="onViewImage(item.original)">View</button>
+      <p>{{ item.description }}</p>
+      <button ion-button clear item-end (click)="onViewImage(item.filename)">View</button>
     </ion-item>
   </ion-list>
 </ion-content>

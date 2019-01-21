@@ -1,3 +1,5 @@
+import { Thumbnail } from './thumbnail';
+
 export interface MediaResponse {
   description: string;
   file_id: number;
@@ -8,4 +10,5 @@ export interface MediaResponse {
   time_added: string;
   title: string;
   user_id: number;
+  thumbnails?: Thumbnail;
 }
