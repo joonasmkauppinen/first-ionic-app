@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 import { AuthProvider } from '../auth/auth';
 
 @Injectable()
-export class ApiProvider implements OnInit {
+export class ApiProvider {
   baseUrl = 'http://media.mw.metropolia.fi/wbma/';
   httpOptions: {};
 
@@ -17,10 +17,18 @@ export class ApiProvider implements OnInit {
     console.log('Hello ApiProvider Provider');
   }
 
-  ngOnInit() {
+  // ngOnInit() {
+  //   this.httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'x-access-token': this.auth.getToken()
+  //     })
+  //   };
+  // }
+
+  setHttpHeaders(token: string) {
     this.httpOptions = {
       headers: new HttpHeaders({
-        'x-access-token': this.auth.getToken()
+        'x-access-token': token
       })
     };
   }
