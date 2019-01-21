@@ -1,4 +1,4 @@
-# Assignment 3 - HTTP - B
+# Assignment 4 - Providers - B
 
 ## Assignment list
 1. [First App](https://github.com/joonasmkauppinen/first-ionic-app/tree/master)
