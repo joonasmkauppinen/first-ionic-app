@@ -7,20 +7,13 @@ import { AuthProvider } from '../auth/auth';
 @Injectable()
 export class ApiProvider {
   baseUrl = 'http://media.mw.metropolia.fi/wbma/';
-  httpOptions: {};
 
-  constructor(
-    public http: HttpClient,
-    private storage: Storage,
-    private auth: AuthProvider
-  ) {
-    console.log('Hello ApiProvider Provider');
-  }
+  constructor(public http: HttpClient, private auth: AuthProvider) {}
 
-  setHttpHeaders(token: string) {
-    this.httpOptions = {
-      headers: new HttpHeaders({
-        'x-access-token': token
+  httpOptions() {
+    return {
+      'headers': new HttpHeaders({
+        'x-access-token': this.auth.getToken()
       })
     };
   }
@@ -31,6 +24,6 @@ export class ApiProvider {
 
   checkTokenValidity() {
     const userUrl = this.baseUrl + 'users/' + this.auth.getUserId();
-    return this.http.get(userUrl, this.httpOptions);
+    return this.http.get(userUrl, this.httpOptions());
   }
 }

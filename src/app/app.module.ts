@@ -14,6 +14,7 @@ import { DigitransitProvider } from '../providers/digitransit/digitransit';
 import { LoginPage } from '../pages/login/login';
 import { ApiProvider } from '../providers/api/api';
 import { AuthProvider } from '../providers/auth/auth';
+import { ToastProvider } from '../providers/toast/toast';
 
 @NgModule({
   declarations: [MyApp, LoginPage, HomePage],
@@ -34,7 +35,8 @@ import { AuthProvider } from '../providers/auth/auth';
     MediaProvider,
     DigitransitProvider,
     ApiProvider,
-    AuthProvider
+    AuthProvider,
+    ToastProvider
   ]
 })
 export class AppModule {}
