@@ -3,6 +3,7 @@
   "extends": "tslint-ionic-rules",
   "jsRules": {},
   "rules": {
+    "linebreak-style": [false],
     "no-duplicate-variable": true,
     "no-floating-promises": {
       "severity": "error"

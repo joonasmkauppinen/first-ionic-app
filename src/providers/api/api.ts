@@ -17,14 +17,6 @@ export class ApiProvider {
     console.log('Hello ApiProvider Provider');
   }
 
-  // ngOnInit() {
-  //   this.httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'x-access-token': this.auth.getToken()
-  //     })
-  //   };
-  // }
-
   setHttpHeaders(token: string) {
     this.httpOptions = {
       headers: new HttpHeaders({
