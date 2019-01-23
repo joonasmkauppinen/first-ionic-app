@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar> <ion-title>Sign Up</ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="onSignup(form)">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>username</ion-label>
+        <ion-input type="text" name="username" ngModel required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>password</ion-label>
+        <ion-input name="password" type="password" ngModel required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>email</ion-label>
+        <ion-input name="email" type="email" ngModel required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>full name (optional)</ion-label>
+        <ion-input name="fullname" type="text" ngModel></ion-input>
+      </ion-item>
+
+      <button type="submit" ion-button block round [disabled]="!form.valid">
+        create account
+      </button>
+    </ion-list>
+  </form>
+</ion-content>

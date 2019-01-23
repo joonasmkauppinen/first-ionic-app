@@ -1,37 +1,31 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { ToastController } from 'ionic-angular';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { LoginParams, SignupParams } from '../../app/interfaces/user-params';
 
 @Injectable()
 export class AuthProvider {
-  private token = '';
-  private userId: number = undefined;
+  baseUrl = 'http://media.mw.metropolia.fi/wbma/';
 
-  constructor(public http: HttpClient, private storage: Storage) {
-    console.log('Hello AuthProvider Provider');
+  constructor(public http: HttpClient) {}
+
+  httpOptions() {
+    return {
+      headers: new HttpHeaders({
+        'x-access-token': localStorage.getItem('token')
+      })
+    };
   }
 
-  async loadLocalData() {
-    this.token = await this.storage.get('token');
-    this.userId = await this.storage.get('userId');
+  signup(user: SignupParams) {
+    return this.http.post(this.baseUrl + 'users', user);
   }
 
-  setToken(value: string) {
-    this.token = value;
-    this.storage.set('token', value);
+  login(user: LoginParams) {
+    const loginInfo = { 'username': user.username, 'password': user.password };
+    return this.http.post(this.baseUrl + 'login', loginInfo);
   }
 
-  setUserid(value: number) {
-    this.userId = value;
-    this.storage.set('userId', value);
-  }
-
-  getToken() {
-    return this.token;
-  }
-
-  getUserId() {
-    return this.userId;
+  logout() {
+    localStorage.removeItem('token');
   }
 }

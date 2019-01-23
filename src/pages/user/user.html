@@ -1,5 +1,5 @@
 <!--
-  Generated template for the MenuPage page.
+  Generated template for the UserPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,12 +7,10 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Menu</ion-title>
-
+    <ion-title align-title="center">profile</ion-title>
     <ion-buttons end>
-      <button ion-button small (click)="onLogout()">logout</button>
+      <button ion-button small color="danger" (click)="onLogout()">LOGOUT</button>
     </ion-buttons>
-
   </ion-navbar>
 
 </ion-header>
@@ -20,7 +18,7 @@
 
 <ion-content padding>
   <h2>Hello {{ fullname }}</h2>
+  <p>userid: {{ userid }}</p>
   <p>username: {{ username }}</p>
   <p>email: {{ email }}</p>
-  <p>userid: {{ userid }}</p>
 </ion-content>

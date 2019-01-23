@@ -9,3 +9,9 @@ export interface MediaResponse {
   title: string;
   user_id: number;
 }
+
+export interface AllMediaResponse {
+  file_count: {
+    total: number;
+  };
+}

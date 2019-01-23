@@ -6,18 +6,27 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { HttpClientModule } from '@angular/common/http';
 import { MediaProvider } from '../providers/media/media';
 import { DigitransitProvider } from '../providers/digitransit/digitransit';
 import { LoginPage } from '../pages/login/login';
-import { ApiProvider } from '../providers/api/api';
 import { AuthProvider } from '../providers/auth/auth';
 import { ToastProvider } from '../providers/toast/toast';
+import { SignupPage } from '../pages/signup/signup';
+import { MenuPage } from '../pages/menu/menu';
+import { UserPage } from '../pages/user/user';
+import { MediaFeedPage } from '../pages/media-feed/media-feed';
 
 @NgModule({
-  declarations: [MyApp, LoginPage, HomePage],
+  declarations: [
+    MyApp,
+    LoginPage,
+    SignupPage,
+    MenuPage,
+    UserPage,
+    MediaFeedPage
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -25,7 +34,14 @@ import { ToastProvider } from '../providers/toast/toast';
     HttpClientModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, LoginPage, HomePage],
+  entryComponents: [
+    MyApp,
+    LoginPage,
+    SignupPage,
+    MenuPage,
+    UserPage,
+    MediaFeedPage
+  ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -34,7 +50,6 @@ import { ToastProvider } from '../providers/toast/toast';
     PhotoViewer,
     MediaProvider,
     DigitransitProvider,
-    ApiProvider,
     AuthProvider,
     ToastProvider
   ]

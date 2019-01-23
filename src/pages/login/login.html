@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar> <ion-title>Login</ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="onLogin(form)">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Username</ion-label>
+        <ion-input name="username" type="text" ngModel required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input name="password" type="password" ngModel required></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <button
+      type="submit"
+      ion-button
+      block
+      round
+      padding
+      [disabled]="!form.valid"
+    >
+      Login
+    </button>
+  </form>
+  <hr />
+  <button ion-button outline block round (click)="onSignUp()">Sign Up</button>
+</ion-content>
