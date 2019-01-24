@@ -28,4 +28,10 @@ export class AuthProvider {
   logout() {
     localStorage.removeItem('token');
   }
+
+  checkUsername(username: string) {
+    console.log('Checking availability for username: ', username);
+    const checkUsernameUrl = `${this.baseUrl}users/username/${username}`;
+    return this.http.get(checkUsernameUrl);
+  }
 }

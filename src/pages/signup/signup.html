@@ -7,8 +7,18 @@
     <ion-list>
       <ion-item>
         <ion-label floating>username</ion-label>
-        <ion-input type="text" name="username" ngModel required></ion-input>
+        <ion-input
+          #username="ngModel"
+          type="text"
+          name="username"
+          ngModel
+          required
+          (keyup)="checkUsername(form.value.username)"
+        ></ion-input>
       </ion-item>
+      <div *ngIf="!availableUsername && username.dirty" class="alert">
+        username already in use
+      </div>
 
       <ion-item>
         <ion-label floating>password</ion-label>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ToastProvider } from '../../providers/toast/toast';
@@ -21,11 +21,11 @@ export class UserPage implements OnInit {
   email: string;
 
   constructor(
-    public navCtrl: NavController,
     public navParams: NavParams,
     private http: HttpClient,
     private auth: AuthProvider,
-    private toast: ToastProvider
+    private toast: ToastProvider,
+    private app: App
   ) {}
 
   ngOnInit() {
@@ -47,6 +47,6 @@ export class UserPage implements OnInit {
 
   onLogout() {
     this.auth.logout();
-    this.navCtrl.setRoot(LoginPage);
+    this.app.getRootNav().setRoot(LoginPage);
   }
 }

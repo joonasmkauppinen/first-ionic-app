@@ -14,6 +14,8 @@ import { MenuPage } from '../menu/menu';
   templateUrl: 'signup.html'
 })
 export class SignupPage {
+  availableUsername = true;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -32,7 +34,7 @@ export class SignupPage {
     const loginParams: LoginParams = {
       username: form.value.username,
       password: form.value.password
-    }
+    };
     this.auth.signup(signupParams).subscribe(
       (res: any) => {
         localStorage.setItem('userId', res['user_id']);
@@ -42,7 +44,8 @@ export class SignupPage {
       err => {
         console.log(err.error.message);
         this.toast.show(err.error.message);
-      });
+      }
+    );
   }
 
   onSuccessfulSignup(loginParams: LoginParams) {
@@ -52,10 +55,24 @@ export class SignupPage {
         console.log(res.message);
         this.toast.show(res.message);
         this.navCtrl.setRoot(MenuPage);
-    },
+      },
       err => {
         console.log(err.error.message);
         this.toast.show(err.error.message);
+      }
+    );
+  }
+
+  checkUsername(username: string) {
+    if (username === '') return;
+    console.log('Checking username ', username);
+    this.auth.checkUsername(username)
+    .subscribe(res => {
+      console.log(res);
+      this.availableUsername = res['available'];
+    },
+    err => {
+      console.log(err);
     });
   }
 }
