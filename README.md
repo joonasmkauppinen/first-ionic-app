@@ -7,7 +7,7 @@
    - **[[ionic-task-a]](https://github.com/joonasmkauppinen/first-ionic-app/tree/ionic-providers)**
    - [ionic-providers-digitransit](https://github.com/joonasmkauppinen/first-ionic-app/tree/ionic-providers-digitransit)
    - [ionic-task-b](https://github.com/joonasmkauppinen/first-ionic-app/tree/ionic-providers-task-b)
-4. [Routing/Login](https://github.com/joonasmkauppinen/first-ionic-app/tree/ionic-routing-login-before-there-was-teacher-instructions)
+4. [Routing/Login](https://github.com/joonasmkauppinen/first-ionic-app/tree/ionic-navigation-login)
 5. [Pipe]()
 6. [Forms]()
 7. [File handling]()
