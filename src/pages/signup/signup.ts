@@ -14,6 +14,7 @@ import { MenuPage } from '../menu/menu';
   templateUrl: 'signup.html'
 })
 export class SignupPage {
+
   availableUsername = true;
 
   constructor(
@@ -66,13 +67,14 @@ export class SignupPage {
   checkUsername(username: string) {
     if (username === '') return;
     console.log('Checking username ', username);
-    this.auth.checkUsername(username)
-    .subscribe(res => {
-      console.log(res);
-      this.availableUsername = res['available'];
-    },
-    err => {
-      console.log(err);
-    });
+    this.auth.checkUsername(username).subscribe(
+      res => {
+        console.log(res);
+        this.availableUsername = res['available'];
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 }

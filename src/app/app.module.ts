@@ -17,6 +17,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { MenuPage } from '../pages/menu/menu';
 import { UserPage } from '../pages/user/user';
 import { MediaFeedPage } from '../pages/media-feed/media-feed';
+import { ThumbnailPipe } from '../pipes/thumbnail/thumbnail';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,14 @@ import { MediaFeedPage } from '../pages/media-feed/media-feed';
     SignupPage,
     MenuPage,
     UserPage,
-    MediaFeedPage
+    MediaFeedPage,
+    ThumbnailPipe
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

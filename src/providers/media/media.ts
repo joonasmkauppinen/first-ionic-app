@@ -13,4 +13,8 @@ export class MediaProvider {
     return this.http.get(this.baseUrl);
   }
 
+  getSingleMedia(id) {
+    return this.http.get(`${this.baseUrl}/${id}`);
+  }
+
 }

@@ -3,4 +3,19 @@ page-user {
     text-align: center;
     padding-left: 79px;
   }
+  .ion-thumbnail {
+    display: flex;
+  }
+  img {
+    margin: auto;
+    border-radius: 50%;
+  }
+  .avatar {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-position: center center;
+    background-size: cover;
+  }
 }

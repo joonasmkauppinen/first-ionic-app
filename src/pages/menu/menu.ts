@@ -8,8 +8,8 @@ import { MediaFeedPage } from '../media-feed/media-feed';
   selector: 'page-menu',
   template: `
   <ion-tabs>
-    <ion-tab [root]="userTab" tabTitle="profile" tabIcon="person"></ion-tab>
     <ion-tab [root]="mediaTab" tabTitle="feed" tabIcon="image"></ion-tab>
+    <ion-tab [root]="userTab" tabTitle="profile" tabIcon="person"></ion-tab>
   </ion-tabs>
   `
 })

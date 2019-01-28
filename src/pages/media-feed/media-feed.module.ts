@@ -7,7 +7,7 @@ import { MediaFeedPage } from './media-feed';
     MediaFeedPage,
   ],
   imports: [
-    IonicPageModule.forChild(MediaFeedPage),
+    IonicPageModule.forChild(MediaFeedPage)
   ],
 })
 export class MediaFeedPageModule {}

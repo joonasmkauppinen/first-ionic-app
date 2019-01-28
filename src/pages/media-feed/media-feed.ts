@@ -7,6 +7,7 @@ import {
   AllMediaResponse,
   MediaResponse
 } from '../../app/interfaces/media-response';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 @IonicPage()
 @Component({
@@ -22,6 +23,7 @@ export class MediaFeedPage implements OnInit {
     public navParams: NavParams,
     private http: HttpClient,
     private auth: AuthProvider,
+    private photoViewer: PhotoViewer,
     private app: App
   ) {}
 
@@ -49,5 +51,10 @@ export class MediaFeedPage implements OnInit {
   onLogout() {
     this.auth.logout();
     this.app.getRootNav().setRoot(LoginPage);
+  }
+
+  showImage(imageUrl) {
+    const fullUrl = this.mediaUrl + imageUrl;
+    this.photoViewer.show(fullUrl);
   }
 }
