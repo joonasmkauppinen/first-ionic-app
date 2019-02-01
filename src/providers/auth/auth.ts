@@ -27,6 +27,7 @@ export class AuthProvider {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
   }
 
   checkUsername(username: string) {

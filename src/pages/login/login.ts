@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ToastController
+} from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 import { NgForm } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';

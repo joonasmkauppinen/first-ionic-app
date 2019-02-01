@@ -12,8 +12,6 @@ export class ThumbnailPipe implements PipeTransform {
   /**
    * Takes a value and makes it lowercase.
    */
-  // transform(fileId: string, size: string): string {
-  //   const splitId = fileId.split('.');
   async transform(fileId: string, size: string) {
     const splitId = fileId.split('.');
     switch (size) {
