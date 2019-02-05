@@ -18,6 +18,8 @@ import { MenuPage } from '../pages/menu/menu';
 import { UserPage } from '../pages/user/user';
 import { MediaFeedPage } from '../pages/media-feed/media-feed';
 import { ThumbnailPipe } from '../pipes/thumbnail/thumbnail';
+import { UsernameValidator } from '../validators/username';
+import { PasswordValidator } from '../validators/password';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { ThumbnailPipe } from '../pipes/thumbnail/thumbnail';
     MediaProvider,
     DigitransitProvider,
     AuthProvider,
-    ToastProvider
+    ToastProvider,
+    UsernameValidator,
+    PasswordValidator
   ]
 })
 export class AppModule {}

@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { NgForm } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { SignupParams } from '../../app/interfaces/user-params';
 import { ToastProvider } from '../../providers/toast/toast';
 import { LoginParams } from '../../app/interfaces/LoginParams';
 import { LoginResponse } from '../../app/interfaces/LoginResponse';
 import { MenuPage } from '../menu/menu';
+import { UsernameValidator } from '../../validators/username';
+import { PasswordValidator } from '../../validators/password';
 
 @IonicPage()
 @Component({
@@ -14,27 +20,67 @@ import { MenuPage } from '../menu/menu';
   templateUrl: 'signup.html'
 })
 export class SignupPage {
-
   availableUsername = true;
+
+  form: FormGroup;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private auth: AuthProvider,
-    public toast: ToastProvider
-  ) {}
+    public toast: ToastProvider,
+    private formBuilder: FormBuilder,
+    private usernameValidator: UsernameValidator
+  ) {
+    this.form = this.formBuilder.group({
+      fullname: [
+        '',
+        Validators.compose([
+          Validators.pattern('[a-zA-Z ]*'),
+          Validators.required
+        ])
+      ],
+      username: [
+        '',
+        Validators.compose([
+          Validators.minLength(3),
+          Validators.pattern('[a-zA-Z0-9-_]*'),
+          Validators.required
+        ]),
+        this.usernameValidator.checkUsername.bind(this)
+      ],
+      email: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+        ])
+      ],
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(5)])
+      ],
+      confirmPassword: [
+        '',
+        Validators.compose([Validators.required])
+      ]
+    },
+    {
+      validator: PasswordValidator.isMatching.bind(this)
+    });
+  }
 
-  onSignup(form: NgForm) {
-    console.log(form.value);
+  onSignup(form: FormGroup) {
+    console.log(form.controls);
     const signupParams: SignupParams = {
-      username: form.value.username,
-      password: form.value.password,
-      email: form.value.email,
-      full_name: form.value.fullname
+      username: form.controls.username.value,
+      password: form.controls.password.value,
+      email: form.controls.email.value,
+      full_name: form.controls.fullname.value
     };
     const loginParams: LoginParams = {
-      username: form.value.username,
-      password: form.value.password
+      username: form.controls.username.value,
+      password: form.controls.password.value
     };
     this.auth.signup(signupParams).subscribe(
       (res: any) => {
@@ -60,20 +106,6 @@ export class SignupPage {
       err => {
         console.log(err.error.message);
         this.toast.show(err.error.message);
-      }
-    );
-  }
-
-  checkUsername(username: string) {
-    if (username === '') return;
-    console.log('Checking username ', username);
-    this.auth.checkUsername(username).subscribe(
-      res => {
-        console.log(res);
-        this.availableUsername = res['available'];
-      },
-      err => {
-        console.log(err);
       }
     );
   }

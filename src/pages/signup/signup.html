@@ -3,41 +3,180 @@
 </ion-header>
 
 <ion-content padding>
-  <form #form="ngForm" (ngSubmit)="onSignup(form)">
-    <ion-list>
-      <ion-item>
-        <ion-label floating>username</ion-label>
-        <ion-input
-          #username="ngModel"
-          type="text"
-          name="username"
-          ngModel
-          required
-          (keyup)="checkUsername(form.value.username)"
-        ></ion-input>
-      </ion-item>
-      <div *ngIf="!availableUsername && username.dirty" class="alert">
-        username already in use
-      </div>
+  <form [formGroup]="form" (ngSubmit)="onSignup(form)">
+    <!-- FULL NAME -->
+    <ion-item>
+      <ion-label floating>full name</ion-label>
+      <ion-input formControlName="fullname" type="text"></ion-input>
+      <ion-icon
+        *ngIf="
+          form.controls['fullname'].valid && form.controls['fullname'].dirty
+        "
+        class="valid-indicator checkmark"
+        name="checkmark-circle"
+        item-right
+      ></ion-icon>
+      <ion-icon
+        *ngIf="
+          !form.controls['fullname'].valid && form.controls['fullname'].dirty
+        "
+        class="valid-indicator cross"
+        name="close-circle"
+        item-right
+      ></ion-icon>
+    </ion-item>
+    <div
+      *ngIf="
+        form.controls['fullname'].dirty && form.controls['fullname'].errors
+      "
+      class="alert"
+    >
+      that doesn't look like a name 🤔
+    </div>
 
-      <ion-item>
-        <ion-label floating>password</ion-label>
-        <ion-input name="password" type="password" ngModel required></ion-input>
-      </ion-item>
+    <!-- USERNAME -->
+    <ion-item>
+      <ion-label floating>username</ion-label>
+      <ion-input formControlName="username" type="text"></ion-input>
+      <ion-icon
+        *ngIf="
+          form.controls['username'].valid && form.controls['username'].dirty
+        "
+        class="valid-indicator checkmark"
+        name="checkmark-circle"
+        item-right
+      ></ion-icon>
+      <ion-icon
+        *ngIf="
+          form.controls['username'].errors && form.controls['username'].dirty
+        "
+        class="valid-indicator cross"
+        name="close-circle"
+        item-right
+      ></ion-icon>
+    </ion-item>
+    <div *ngIf="form.controls['username'].errors?.usernameInUse" class="alert">
+      username already in use
+    </div>
+    <div
+      *ngIf="form.controls['username'].errors?.usernameCheckError"
+      class="alert"
+    >
+      error checking username availability
+    </div>
+    <div
+      *ngIf="
+        form.controls['username'].value === '' &&
+        form.controls['username'].dirty
+      "
+      class="alert"
+    >
+      please enter a username
+    </div>
+    <div
+      *ngIf="
+        form.controls['username'].errors?.pattern &&
+        form.controls['username'].dirty
+      "
+      class="alert"
+    >
+      username can only contain <br />
+      letters [a-z, A-Z], <br />numbers [0-9] <br />and dashes [-] or
+      underscores [_]
+    </div>
 
-      <ion-item>
-        <ion-label floating>email</ion-label>
-        <ion-input name="email" type="email" ngModel required></ion-input>
-      </ion-item>
+    <!-- EMAIL -->
+    <ion-item>
+      <ion-label floating>email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+      <ion-icon
+        *ngIf="!form.controls['email'].errors && form.controls['email'].dirty"
+        class="valid-indicator checkmark"
+        name="checkmark-circle"
+        item-right
+      ></ion-icon>
+      <ion-icon
+        *ngIf="form.controls['email'].errors && form.controls['email'].touched"
+        class="valid-indicator cross"
+        name="close-circle"
+        item-right
+      ></ion-icon>
+    </ion-item>
+    <div
+      *ngIf="form.controls['email'].errors && form.controls['email'].touched"
+      class="alert"
+    >
+      invalid email address
+    </div>
 
-      <ion-item>
-        <ion-label floating>full name (optional)</ion-label>
-        <ion-input name="fullname" type="text" ngModel></ion-input>
-      </ion-item>
+    <!-- PASSWORD -->
+    <ion-item>
+      <ion-label floating>password</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+      <ion-icon
+        *ngIf="
+          !form.controls['password'].errors &&
+          form.controls['password'].dirty
+        "
+        class="valid-indicator checkmark"
+        name="checkmark-circle"
+        item-right
+      ></ion-icon>
+      <ion-icon
+        *ngIf="
+          form.controls['password'].errors &&
+          form.controls['password'].touched
+        "
+        class="valid-indicator cross"
+        name="close-circle"
+        item-right
+      ></ion-icon>
+    </ion-item>
+    <div
+      *ngIf="
+        form.controls['password'].errors &&
+        form.controls['password'].touched
+      "
+      class="alert"
+    >
+      password must be atleast 5 characters long
+    </div>
 
-      <button type="submit" ion-button block round [disabled]="!form.valid">
-        create account
-      </button>
-    </ion-list>
+    <!-- CONFIRM PASSWORD -->
+    <ion-item>
+      <ion-label floating>confirm password</ion-label>
+      <ion-input formControlName="confirmPassword" type="password"></ion-input>
+      <ion-icon
+        *ngIf="
+          !form.controls['confirmPassword'].errors?.notMatching &&
+          form.controls['confirmPassword'].dirty
+        "
+        class="valid-indicator checkmark"
+        name="checkmark-circle"
+        item-right
+      ></ion-icon>
+      <ion-icon
+        *ngIf="
+          form.controls['confirmPassword'].errors?.notMatching &&
+          form.controls['confirmPassword'].touched
+        "
+        class="valid-indicator cross"
+        name="close-circle"
+        item-right
+      ></ion-icon>
+    </ion-item>
+    <div
+      *ngIf="
+        form.controls['confirmPassword'].errors?.notMatching &&
+        form.controls['confirmPassword'].touched
+      "
+      class="alert"
+    >
+      passwords do not match
+    </div>
+
+    <button type="submit" ion-button block round [disabled]="!form.valid">
+      create account
+    </button>
   </form>
 </ion-content>
