@@ -5,26 +5,44 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>feed</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
   <ion-list>
     <ion-item *ngFor="let item of mediaArray">
-      <ion-thumbnail item-start>
-        <img [src]="mediaUrl + (item.filename | thumbnail: 'small' | async)">
+      <ion-thumbnail item-start *ngIf="item.media_type === 'image'">
+        <img
+          *ngIf="item.mime_type !== 'image/gif'"
+          [src]="(mediaUrl + (item.filename | thumbnail: 'small' | async))"
+        >
+        <img
+          *ngIf="item.mime_type === 'image/gif'"
+          [src]="(mediaUrl + item.filename)"
+        >
       </ion-thumbnail>
+
+      <audio
+        controls
+        [src]="mediaUrl + item.filename"
+        *ngIf="item.media_type === 'audio'"
+        style="width: 100%"
+      ></audio>
+
       <h2>{{ item.title }}</h2>
-      <p>{{ item.time_added | date:'shortDate' | uppercase }}</p>
+      <p>{{ item.time_added | date: 'shortDate' | uppercase }}</p>
       <p>{{ item.description }}</p>
-      <button ion-button clear item-end (click)="showImage(item.filename)">View</button>
+      <button
+        *ngIf="item.media_type === 'image'"
+        ion-button
+        clear
+        item-end
+        (click)="showImage(item.filename)"
+      >
+        View
+      </button>
     </ion-item>
   </ion-list>
-
 </ion-content>

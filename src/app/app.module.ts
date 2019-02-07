@@ -20,6 +20,7 @@ import { MediaFeedPage } from '../pages/media-feed/media-feed';
 import { ThumbnailPipe } from '../pipes/thumbnail/thumbnail';
 import { UsernameValidator } from '../validators/username';
 import { PasswordValidator } from '../validators/password';
+import { FileUploadPage } from '../pages/file-upload/file-upload';
 
 @NgModule({
   declarations: [
@@ -29,13 +30,14 @@ import { PasswordValidator } from '../validators/password';
     MenuPage,
     UserPage,
     MediaFeedPage,
+    FileUploadPage,
     ThumbnailPipe
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    HttpClientModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -44,7 +46,8 @@ import { PasswordValidator } from '../validators/password';
     SignupPage,
     MenuPage,
     UserPage,
-    MediaFeedPage
+    MediaFeedPage,
+    FileUploadPage
   ],
   providers: [
     StatusBar,

@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
+import {
+  App,
+  IonicPage,
+  NavController,
+  NavParams,
+  Events
+} from 'ionic-angular';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthProvider } from '../../providers/auth/auth';
 import { LoginPage } from '../login/login';
@@ -8,6 +14,8 @@ import {
   MediaResponse
 } from '../../app/interfaces/media-response';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { MediaProvider } from '../../providers/media/media';
+import { ToastProvider } from '../../providers/toast/toast';
 
 @IonicPage()
 @Component({
@@ -19,13 +27,23 @@ export class MediaFeedPage implements OnInit {
   mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
   mediaArray: MediaResponse[];
 
+  uploadedFileId: number;
+
   constructor(
     public navParams: NavParams,
     private http: HttpClient,
+    private mediaProvider: MediaProvider,
     private auth: AuthProvider,
     private photoViewer: PhotoViewer,
-    private app: App
-  ) {}
+    private app: App,
+    private event: Events,
+    private toast: ToastProvider
+  ) {
+    this.event.subscribe('new-upload', (fileId: number) => {
+      console.log('Hello Im an event, and the file id is ', fileId);
+      this.updateFeed(fileId);
+    });
+  }
 
   ngOnInit() {
     this.http
@@ -45,6 +63,18 @@ export class MediaFeedPage implements OnInit {
       .subscribe((res: MediaResponse[]) => {
         console.log(res);
         this.mediaArray = res;
+      });
+  }
+
+  updateFeed(id: number) {
+    console.log('updating feed...');
+    this.mediaProvider.getSingleMedia(id).subscribe(
+      (res: MediaResponse) => {
+        this.mediaArray.unshift(res);
+      },
+      err => {
+        console.log(err);
+        this.toast.show(err.message);
       });
   }
 

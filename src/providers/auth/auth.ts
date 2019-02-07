@@ -16,6 +16,15 @@ export class AuthProvider {
     };
   }
 
+  httpUploadOptions() {
+    return {
+      headers: new HttpHeaders({
+        'x-access-token': localStorage.getItem('token'),
+        'Content-Type': 'multipart/form-data'
+      })
+    };
+  }
+
   signup(user: SignupParams) {
     return this.http.post(this.baseUrl + 'users', user);
   }

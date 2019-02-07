@@ -1,0 +1,229 @@
+<!--
+  Generated template for the FileUploadPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>NEW POST</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm">
+    <ion-item>
+      <ion-label floating>Title</ion-label>
+      <ion-input type="text" name="title" ngModel required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Description</ion-label>
+      <ion-textarea
+        #description
+        id="description"
+        name="description"
+        rows="1"
+        maxLength="500"
+        (input)="resize()"
+        style="min-height: 35.2px"
+        ngModel
+      ></ion-textarea>
+    </ion-item>
+
+    <input
+      type="file"
+      #file
+      id="file"
+      name="file"
+      accept="image/*, video/*, audio/*"
+      style="display: none"
+      ngModel
+      required
+      (click)="clearPreview()"
+      (change)="updatePreview($event)"
+    />
+    <label margin-top ion-button round block outline for="file"
+      >choose media</label
+    >
+  </form>
+
+  <canvas
+    *ngIf="
+      selectedFile.preview &&
+      (selectedFile.info['type'] === 'image/jpeg' ||
+        selectedFile.info['type'] === 'image/png')
+    "
+    #imageCanvas
+    width="200"
+    height="200"
+    style="width: 100%"
+    margin-top
+  ></canvas>
+
+  <img
+    *ngIf="selectedFile.preview && selectedFile.info['type'] === 'image/gif'"
+    [src]="selectedFile.preview"
+    margin-top
+    margin-bottom
+    style="width: 100%"
+  />
+
+  <video
+    autoplay
+    muted
+    loop
+    [src]="selectedFile.preview"
+    *ngIf="selectedFile.preview && selectedFile.info['type'] === 'video/mp4'"
+    style="width: 100%"
+  ></video>
+
+  <audio
+    controls
+    autoplay
+    [src]="selectedFile.preview"
+    *ngIf="selectedFile.preview && selectedFile.info['type'] === 'audio/mp3'"
+    style="width: 100%"
+    margin-top
+    margin-bottom
+  ></audio>
+
+  <ion-list
+    *ngIf="
+      selectedFile.preview &&
+      (selectedFile.info['type'] === 'image/jpeg' ||
+        selectedFile.info['type'] === 'image/png')
+    "
+  >
+    <div class="slider-info">
+      <ion-label>brightness</ion-label>
+      <ion-badge item-end>{{ brightness - 100 }}</ion-badge>
+    </div>
+    <ion-item>
+      <ion-range
+        min="0"
+        max="200"
+        color="primary"
+        [(ngModel)]="brightness"
+        (ionChange)="rangeChange()"
+      >
+        <ion-icon small range-left name="sunny"></ion-icon>
+        <ion-icon range-right name="sunny"></ion-icon>
+      </ion-range>
+    </ion-item>
+
+    <div class="slider-info">
+      <ion-label>contrast</ion-label>
+      <ion-badge item-end>{{ contrast - 100 }}</ion-badge>
+    </div>
+    <ion-item>
+      <ion-range
+        min="0"
+        max="200"
+        color="primary"
+        [(ngModel)]="contrast"
+        (ionChange)="rangeChange()"
+      >
+        <ion-icon small range-left name="contrast"></ion-icon>
+        <ion-icon range-right name="contrast"></ion-icon>
+      </ion-range>
+    </ion-item>
+
+    <div class="slider-info">
+      <ion-label>saturation</ion-label>
+      <ion-badge item-end>{{ saturate - 100 }}</ion-badge>
+    </div>
+    <ion-item>
+      <ion-range
+        min="0"
+        max="200"
+        color="primary"
+        [(ngModel)]="saturate"
+        (ionChange)="rangeChange()"
+      >
+        <ion-icon small range-left name="speedometer"></ion-icon>
+        <ion-icon range-right name="speedometer"></ion-icon>
+      </ion-range>
+    </ion-item>
+
+    <div class="slider-info">
+      <ion-label>hue</ion-label>
+      <ion-badge item-end>{{ hue }}&#176;</ion-badge>
+    </div>
+    <ion-item>
+      <ion-range
+        min="0"
+        max="360"
+        color="primary"
+        [(ngModel)]="hue"
+        (ionChange)="rangeChange()"
+      >
+        <ion-icon small range-left name="color-palette"></ion-icon>
+        <ion-icon range-right name="color-palette"></ion-icon>
+      </ion-range>
+    </ion-item>
+
+    <div class="slider-info">
+      <ion-label>grayscale</ion-label>
+      <ion-badge item-end>{{ grayscale }}</ion-badge>
+    </div>
+    <ion-item>
+      <ion-range
+        min="0"
+        max="100"
+        color="primary"
+        [(ngModel)]="grayscale"
+        (ionChange)="rangeChange()"
+      >
+        <ion-icon small range-left name="remove"></ion-icon>
+        <ion-icon range-right name="add"></ion-icon>
+      </ion-range>
+    </ion-item>
+
+    <div class="slider-info">
+      <ion-label>invert</ion-label>
+      <ion-badge item-end>{{ invert }}</ion-badge>
+    </div>
+    <ion-item>
+      <ion-range
+        min="0"
+        max="100"
+        color="primary"
+        [(ngModel)]="invert"
+        (ionChange)="rangeChange()"
+      >
+        <ion-icon small range-left name="remove"></ion-icon>
+        <ion-icon range-right name="add"></ion-icon>
+      </ion-range>
+    </ion-item>
+
+    <div class="slider-info">
+      <ion-label>sepia</ion-label>
+      <ion-badge item-end>{{ sepia }}</ion-badge>
+    </div>
+    <ion-item>
+      <ion-range
+        min="0"
+        max="100"
+        color="primary"
+        [(ngModel)]="sepia"
+        (ionChange)="rangeChange()"
+      >
+        <ion-icon small range-left name="remove"></ion-icon>
+        <ion-icon range-right name="add"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+
+  <hr />
+
+  <button
+    ion-button
+    block
+    round
+    (click)="onSubmit(form)"
+    [disabled]="!form.valid"
+  >
+    post
+  </button>
+</ion-content>
