@@ -1,4 +1,4 @@
-# Assignment 8 - File Handling
+# Assignment 9 - chooser
 
 ## Assignment list
 1. [First App](https://github.com/joonasmkauppinen/first-ionic-app/tree/master)
