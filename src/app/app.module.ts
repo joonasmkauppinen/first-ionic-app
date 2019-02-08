@@ -21,6 +21,8 @@ import { ThumbnailPipe } from '../pipes/thumbnail/thumbnail';
 import { UsernameValidator } from '../validators/username';
 import { PasswordValidator } from '../validators/password';
 import { FileUploadPage } from '../pages/file-upload/file-upload';
+import { TexttospeechProvider } from '../providers/texttospeech/texttospeech';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 @NgModule({
   declarations: [
@@ -55,12 +57,14 @@ import { FileUploadPage } from '../pages/file-upload/file-upload';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,
     PhotoViewer,
+    TextToSpeech,
     MediaProvider,
     DigitransitProvider,
     AuthProvider,
     ToastProvider,
     UsernameValidator,
-    PasswordValidator
+    PasswordValidator,
+    TexttospeechProvider
   ]
 })
 export class AppModule {}

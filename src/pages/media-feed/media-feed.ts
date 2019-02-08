@@ -16,6 +16,7 @@ import {
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { MediaProvider } from '../../providers/media/media';
 import { ToastProvider } from '../../providers/toast/toast';
+import { TexttospeechProvider } from '../../providers/texttospeech/texttospeech';
 
 @IonicPage()
 @Component({
@@ -37,7 +38,8 @@ export class MediaFeedPage implements OnInit {
     private photoViewer: PhotoViewer,
     private app: App,
     private event: Events,
-    private toast: ToastProvider
+    private toast: ToastProvider,
+    private tts: TexttospeechProvider
   ) {
     this.event.subscribe('new-upload', (fileId: number) => {
       console.log('Hello Im an event, and the file id is ', fileId);
@@ -86,5 +88,10 @@ export class MediaFeedPage implements OnInit {
   showImage(imageUrl) {
     const fullUrl = this.mediaUrl + imageUrl;
     this.photoViewer.show(fullUrl);
+  }
+
+  speakTitle(text: string) {
+    console.log('Saying: ', text);
+    this.tts.speak(text);
   }
 }

@@ -3,6 +3,7 @@ import { IonicPage, NavController, Tab } from 'ionic-angular';
 import { UserPage } from '../user/user';
 import { MediaFeedPage } from '../media-feed/media-feed';
 import { FileUploadPage } from '../file-upload/file-upload';
+import { TexttospeechProvider } from '../../providers/texttospeech/texttospeech';
 
 @IonicPage()
 @Component({
@@ -20,7 +21,12 @@ export class MenuPage {
   fileUploadTab = FileUploadPage;
   mediaTab = MediaFeedPage;
 
-  constructor(private nav: NavController) {}
+  constructor(private nav: NavController, private tts: TexttospeechProvider) {}
+
+  ionViewDidEnter() {
+    console.log('ion view did enter');
+    this.tts.speak('welcome to media player');
+  }
 
   onNewUpload(tab: Tab) {
     if (tab.index === 1) this.nav.push(this.fileUploadTab);

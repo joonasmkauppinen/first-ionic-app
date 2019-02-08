@@ -17,10 +17,12 @@
         <img
           *ngIf="item.mime_type !== 'image/gif'"
           [src]="(mediaUrl + (item.filename | thumbnail: 'small' | async))"
+          (click)="speakTitle(item.title + ' ' + item.description)"
         >
         <img
           *ngIf="item.mime_type === 'image/gif'"
           [src]="(mediaUrl + item.filename)"
+          (click)="speakTitle(item.title + ' ' + item.description)"
         >
       </ion-thumbnail>
 
