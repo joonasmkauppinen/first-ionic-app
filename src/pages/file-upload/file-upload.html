@@ -31,7 +31,7 @@
       ></ion-textarea>
     </ion-item>
 
-    <input
+    <!-- <input
       type="file"
       #file
       id="file"
@@ -45,14 +45,24 @@
     />
     <label margin-top ion-button round block outline for="file"
       >choose media</label
+    > -->
+    <button
+      type="button"
+      ion-button
+      round
+      outline
+      block
+      margin-top
+      (click)="getFile()"
     >
+      choose media
+    </button>
   </form>
 
   <canvas
     *ngIf="
       selectedFile.preview &&
-      (selectedFile.info['type'] === 'image/jpeg' ||
-        selectedFile.info['type'] === 'image/png')
+      (selectedFile.info === 'image/jpeg' || selectedFile.info === 'image/png')
     "
     #imageCanvas
     width="200"
@@ -62,7 +72,7 @@
   ></canvas>
 
   <img
-    *ngIf="selectedFile.preview && selectedFile.info['type'] === 'image/gif'"
+    *ngIf="selectedFile.preview && selectedFile.info === 'image/gif'"
     [src]="selectedFile.preview"
     margin-top
     margin-bottom
@@ -74,7 +84,7 @@
     muted
     loop
     [src]="selectedFile.preview"
-    *ngIf="selectedFile.preview && selectedFile.info['type'] === 'video/mp4'"
+    *ngIf="selectedFile.preview && selectedFile.info === 'video/mp4'"
     style="width: 100%"
   ></video>
 
@@ -91,8 +101,7 @@
   <ion-list
     *ngIf="
       selectedFile.preview &&
-      (selectedFile.info['type'] === 'image/jpeg' ||
-        selectedFile.info['type'] === 'image/png')
+      (selectedFile.info === 'image/jpeg' || selectedFile.info === 'image/png')
     "
   >
     <div class="slider-info">
@@ -222,7 +231,7 @@
     block
     round
     (click)="onSubmit(form)"
-    [disabled]="!form.valid"
+    [disabled]="selectedFile.preview === null || !form.valid"
   >
     post
   </button>

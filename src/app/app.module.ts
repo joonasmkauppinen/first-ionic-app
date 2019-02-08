@@ -7,6 +7,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { Chooser } from '@ionic-native/chooser';
 import { HttpClientModule } from '@angular/common/http';
 import { MediaProvider } from '../providers/media/media';
 import { DigitransitProvider } from '../providers/digitransit/digitransit';
@@ -57,6 +58,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,
     PhotoViewer,
+    Chooser,
     TextToSpeech,
     MediaProvider,
     DigitransitProvider,

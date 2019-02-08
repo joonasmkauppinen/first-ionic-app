@@ -1,14 +1,15 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import {
+  Events,
   IonicPage,
-  NavController,
-  NavParams,
   LoadingController,
-  Events
+  NavController,
+  NavParams
 } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { MediaProvider } from '../../providers/media/media';
 import { ToastProvider } from '../../providers/toast/toast';
+import { Chooser } from '@ionic-native/chooser';
 
 @IonicPage()
 @Component({
@@ -38,7 +39,8 @@ export class FileUploadPage {
     private mediaProvider: MediaProvider,
     private spinner: LoadingController,
     private toast: ToastProvider,
-    private event: Events
+    private event: Events,
+    private chooser: Chooser
   ) {}
 
   @ViewChild('description') description: ElementRef;
@@ -131,7 +133,6 @@ export class FileUploadPage {
           setTimeout(() => {
             this.imageCanvas.nativeElement.width = this.image.width;
             this.imageCanvas.nativeElement.height = this.image.height;
-            // const context = this.imageCanvas.nativeElement.getContext('2d');
             this.canvasCtx = this.imageCanvas.nativeElement.getContext('2d');
             this.canvasCtx.drawImage(this.image, 0, 0);
           }, 200);
@@ -146,6 +147,32 @@ export class FileUploadPage {
     }
 
     console.log('Selected file: ', this.selectedFile);
+  }
+
+  updatePreviewWithChooser(file) {
+    console.log('File input changed');
+
+    if (file) {
+      this.image = new Image();
+      this.selectedFile.preview = file.dataURI;
+      this.image.src = file.dataURI;
+      this.image.onload = () => {
+        setTimeout(() => {
+          this.imageCanvas.nativeElement.width = this.image.width;
+          this.imageCanvas.nativeElement.height = this.image.height;
+          this.canvasCtx = this.imageCanvas.nativeElement.getContext('2d');
+          this.canvasCtx.drawImage(this.image, 0, 0);
+        }, 200);
+      };
+
+      this.selectedFile.info = file.mediaType;
+    } else {
+      this.canvasCtx = null;
+      this.selectedFile.preview = null;
+      this.selectedFile.info = null;
+    }
+
+    console.log('Selected file: ', file);
   }
 
   rangeChange() {
@@ -163,5 +190,17 @@ export class FileUploadPage {
     invert(${this.invert}%)
     sepia(${this.sepia}%)
     `;
+  }
+
+  getFile() {
+    this.chooser
+      .getFile('image/*, video/*')
+      .then(file => {
+        console.log(file ? file : 'canceled');
+        this.updatePreviewWithChooser(file);
+        // this.selectedFile.preview = file.dataURI;
+        // this.selectedFile.info = file.mediaType;
+      })
+      .catch((error: any) => console.error(error));
   }
 }

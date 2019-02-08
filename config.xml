@@ -86,5 +86,6 @@
     <plugin name="cordova-sqlite-storage" spec="2.6.0" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-tts" spec="0.2.3" />
+    <plugin name="cordova-plugin-chooser" spec="1.2.5" />
     <engine name="android" spec="7.1.4" />
 </widget>
