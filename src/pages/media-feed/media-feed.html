@@ -12,39 +12,74 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let item of mediaArray">
-      <ion-thumbnail item-start *ngIf="item.media_type === 'image'">
-        <img
-          *ngIf="item.mime_type !== 'image/gif'"
-          [src]="(mediaUrl + (item.filename | thumbnail: 'small' | async))"
-          (click)="speakTitle(item.title + ' ' + item.description)"
-        >
-        <img
-          *ngIf="item.mime_type === 'image/gif'"
-          [src]="(mediaUrl + item.filename)"
-          (click)="speakTitle(item.title + ' ' + item.description)"
-        >
-      </ion-thumbnail>
-
-      <audio
-        controls
-        [src]="mediaUrl + item.filename"
-        *ngIf="item.media_type === 'audio'"
-        style="width: 100%"
-      ></audio>
-
-      <h2>{{ item.title }}</h2>
-      <p>{{ item.time_added | date: 'shortDate' | uppercase }}</p>
-      <p>{{ item.description }}</p>
-      <button
-        *ngIf="item.media_type === 'image'"
-        ion-button
-        clear
-        item-end
+    <div *ngFor="let item of mediaArray" class="feed-item">
+      <img
+        *ngIf="item.mime_type !== 'image/gif'"
+        [src]="mediaUrl + (item.filename | thumbnail: 'medium' | async)"
         (click)="showImage(item.filename)"
-      >
-        View
-      </button>
-    </ion-item>
+      />
+      <img
+        *ngIf="item.mime_type === 'image/gif'"
+        [src]="mediaUrl + item.filename"
+        (click)="showImage(mediaUrl + item.filename)"
+      />
+      <section class="post">
+        <div class="post__user-info">
+          <div
+            class="post__profile-pic"
+            [ngStyle]="{
+              'background-image':
+                'url(' + mediaUrl + getProfilePic(item.user_id) + ')' }"
+          ></div>
+          <p class="post__username">{{ getUsername(item.user_id) }}</p>
+          <span class="post__timestamp">{{
+            item.time_added | date: 'fullDate'
+          }}</span>
+        </div>
+
+        <div
+          class="post__info"
+          (click)="speakTitle(item.title + ' ' + item.description)"
+        >
+          <p class="post__title">{{ item.title }}</p>
+          <p class="post__description">{{ item.description }}</p>
+        </div>
+      </section>
+    </div>
   </ion-list>
 </ion-content>
+
+<!-- <ion-item *ngFor="let item of mediaArray">
+  <ion-thumbnail item-start *ngIf="item.media_type === 'image'">
+    <img
+      *ngIf="item.mime_type !== 'image/gif'"
+      [src]="(mediaUrl + (item.filename | thumbnail: 'small' | async))"
+      (click)="speakTitle(item.title + ' ' + item.description)"
+    >
+    <img
+      *ngIf="item.mime_type === 'image/gif'"
+      [src]="(mediaUrl + item.filename)"
+      (click)="speakTitle(item.title + ' ' + item.description)"
+    >
+  </ion-thumbnail>
+
+  <audio
+    controls
+    [src]="mediaUrl + item.filename"
+    *ngIf="item.media_type === 'audio'"
+    style="width: 100%"
+  ></audio>
+
+  <h2>{{ item.title }}</h2>
+  <p>{{ item.time_added | date: 'shortDate' | uppercase }}</p>
+  <p>{{ item.description }}</p>
+  <button
+    *ngIf="item.media_type === 'image'"
+    ion-button
+    clear
+    item-end
+    (click)="showImage(item.filename)"
+  >
+    View
+  </button>
+</ion-item> -->

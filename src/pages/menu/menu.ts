@@ -10,9 +10,9 @@ import { TexttospeechProvider } from '../../providers/texttospeech/texttospeech'
   selector: 'page-menu',
   template: `
     <ion-tabs (ionChange)="onNewUpload($event)">
-      <ion-tab [root]="mediaTab" tabTitle="feed" tabIcon="image"></ion-tab>
-      <ion-tab tabTitle="new" tabIcon="add-circle"></ion-tab>
-      <ion-tab [root]="userTab" tabTitle="profile" tabIcon="person"></ion-tab>
+      <ion-tab [root]="mediaTab" tabIcon="image"></ion-tab>
+      <ion-tab tabIcon="add-circle"></ion-tab>
+      <ion-tab [root]="userTab" tabIcon="person"></ion-tab>
     </ion-tabs>
   `
 })

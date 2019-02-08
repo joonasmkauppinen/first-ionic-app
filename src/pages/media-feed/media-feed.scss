@@ -1,5 +1,96 @@
 page-media-feed {
+
+  img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0px 8px 24px rgba(42, 0, 84, 0.24);
+  }
+
+  .feed-item {
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .post {
+    position: relative;
+    background-color: white;
+    border-radius: 16px;
+    font-family: 'Rubik', sans-serif;
+    box-shadow: 0px 16px 40px rgba(42, 0, 84, 0.08);
+    margin-top: -64px;
+    margin-left: 16px;
+    margin-right: 16px;
+    overflow: auto;
+
+    &__user-info {
+      display: flex;
+      margin: 16px;
+      align-items: center;
+    }
+
+    &__profile-pic {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background-color: lightgrey;
+      background-position: center center;
+      background-size: cover;
+    }
+
+    &__fullname {
+      margin: 0;
+      margin-left: 8px;
+      font-size: 16px;
+      font-weight: normal;
+      color: #3E3E3E;
+    }
+
+    &__username {
+      margin: 0;
+      margin-left: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #8B8BA0;
+    }
+
+    &__timestamp {
+      margin: 0;
+      color: #8B8BA0;
+      font-weight: 400;
+      font-size: 12px;
+      flex-grow: 1;
+      text-align: end;
+    }
+
+    &__info {
+      margin: 16px;
+      margin-bottom: 40px;
+    }
+
+    &__title {
+      color: #3E3E3E;
+      font-weight: normal;
+      font-size: 20px;
+      margin: 0;
+    }
+
+    &__description {
+      color: #8B8BA0;
+      font-weight: 400;
+      font-size: 12px;
+      margin: 0;
+      margin-top: 8px;
+      text-align: justify;
+      line-height: 1.4;
+    }
+  }
+
   .toolbar-title {
     text-align: center;
   }
+
+  .content-md {
+    background-color: #f8f8f8;
+  }
+
 }
