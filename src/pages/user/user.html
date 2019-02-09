@@ -19,11 +19,17 @@
   <div
     class="avatar"
     *ngIf="avatarUrl !== 'loading'"
-    [ngStyle]="{ 'background-image': 'url(' + mediaUrl + avatarUrl + ')' }"
+    [ngStyle]="{ 'background-image': 'url(' + mediaUrl + (avatarUrl | thumbnail: 'small' | async ) + ')' }"
   ></div>
 
-  <h2>Hello {{ fullname }}</h2>
-  <p>userid: {{ userid }}</p>
-  <p>username: {{ username }}</p>
-  <p>email: {{ email }}</p>
+  <h2>Hello {{ profileInfo?.full_name }}</h2>
+  <p>userid: {{ profileInfo?.user_id }}</p>
+  <p>username: {{ profileInfo?.username }}</p>
+  <p>email: {{ profileInfo?.email }}</p>
+
+  <ion-list>
+    <ion-item *ngFor="let item of userMedia">
+      <img [src]="mediaUrl + (item.filename | thumbnail: 'small' | async)">
+    </ion-item>
+  </ion-list>
 </ion-content>

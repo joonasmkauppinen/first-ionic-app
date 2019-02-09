@@ -12,6 +12,7 @@
 
 <ion-content padding>
   <ion-list>
+
     <div *ngFor="let item of mediaArray" class="feed-item">
       <img
         *ngIf="item.mime_type !== 'image/gif'"
@@ -30,6 +31,7 @@
             [ngStyle]="{
               'background-image':
                 'url(' + mediaUrl + getProfilePic(item.user_id) + ')' }"
+                (click)="goToProfile(item.user_id)"
           ></div>
           <p class="post__username">{{ getUsername(item.user_id) }}</p>
           <span class="post__timestamp">{{
@@ -46,6 +48,11 @@
         </div>
       </section>
     </div>
+
+    <div #loadTrigger class="load-trigger">
+      <p>{{ feedStatus }}</p>
+    </div>
+
   </ion-list>
 </ion-content>
 

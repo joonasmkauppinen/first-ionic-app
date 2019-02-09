@@ -6,6 +6,7 @@ import { ToastProvider } from '../../providers/toast/toast';
 import { SignupParams } from '../../app/interfaces/user-params';
 import { LoginPage } from '../login/login';
 import { MediaResponse } from '../../app/interfaces/media-response';
+import { MediaProvider } from '../../providers/media/media';
 
 @IonicPage()
 @Component({
@@ -13,40 +14,28 @@ import { MediaResponse } from '../../app/interfaces/media-response';
   templateUrl: 'user.html'
 })
 export class UserPage implements OnInit {
-
   baseUrl = 'http://media.mw.metropolia.fi/wbma/';
   mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
   avatarUrl = 'loading';
 
-  fullname: string;
-  username: string;
-  userid: string;
-  email: string;
+  userId: number;
+  profileInfo: SignupParams;
+  userMedia: MediaResponse[];
 
   constructor(
     public navParams: NavParams,
     private http: HttpClient,
     private auth: AuthProvider,
     private toast: ToastProvider,
+    private mediaProvider: MediaProvider,
     private app: App
   ) {}
 
   ngOnInit() {
-    const userUrl = `${this.baseUrl}users/${localStorage.getItem('userId')}`;
-    this.http.get(userUrl, this.auth.httpOptions()).subscribe(
-      (res: SignupParams) => {
-        console.log(res);
-        this.username = res.username;
-        this.userid = res.user_id.toString();
-        this.email = res.email;
-        this.fullname = res.full_name;
-      },
-      err => {
-        console.log(err);
-        this.toast.show(err.error.message);
-      }
-    );
+    this.userId = this.navParams.get('userId') || +localStorage.getItem('userId');
+    this.getProfileInfo(this.userId);
+    this.getProfileMedia(this.userId);
   }
 
   ionViewDidLoad() {
@@ -59,10 +48,32 @@ export class UserPage implements OnInit {
   }
 
   getProfilePic() {
-    this.http.get(this.baseUrl + 'tags/profile').subscribe((res: MediaResponse[]) => {
-      this.avatarUrl = res
-        .filter(item => item.user_id.toString() === localStorage.getItem('userId'))
-        .map(user => user.filename)[0];
+    this.http
+      .get(this.baseUrl + 'tags/profile')
+      .subscribe((res: MediaResponse[]) => {
+        this.avatarUrl = res
+          .filter(
+            item => item.user_id === this.userId
+          )
+          .map(user => user.filename)[0];
+      });
+  }
+
+  getProfileInfo(userId: number) {
+    this.mediaProvider
+        .getUserInfo(userId)
+        .subscribe((res: SignupParams) => {
+          this.profileInfo = res;
+        });
+  }
+
+  getProfileMedia(userId: number) {
+    this.mediaProvider.getUserMedia(userId).subscribe((res: MediaResponse[]) => {
+      console.log(res);
+      this.userMedia = res;
+    },
+    err => {
+      console.log(err);
     });
   }
 }

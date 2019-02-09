@@ -27,7 +27,7 @@ export class MyApp {
 
       if (platform.is('android')) {
         statusBar.styleDefault();
-        statusBar.backgroundColorByHexString('#f8f8f8');
+        statusBar.backgroundColorByHexString('#fff');
       }
       splashScreen.hide();
     })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {
   App,
   IonicPage,
@@ -18,6 +18,7 @@ import { MediaProvider } from '../../providers/media/media';
 import { ToastProvider } from '../../providers/toast/toast';
 import { TexttospeechProvider } from '../../providers/texttospeech/texttospeech';
 import { UsersResponse } from '../../app/interfaces/UsersResponse';
+import { UserPage } from '../user/user';
 
 @IonicPage()
 @Component({
@@ -28,14 +29,18 @@ export class MediaFeedPage implements OnInit {
   baseUrl = 'http://media.mw.metropolia.fi/wbma/';
   mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-  mediaArray: MediaResponse[];
+  mediaArray: MediaResponse[] = [];
   usersArr: UsersResponse[];
   profilePicArr: MediaResponse[];
 
   uploadedFileId: number;
 
+  totalFilesOnServer: number;
+  feedStatus = 'loading...';
+
   constructor(
     public navParams: NavParams,
+    private navController: NavController,
     private http: HttpClient,
     private mediaProvider: MediaProvider,
     private auth: AuthProvider,
@@ -50,16 +55,25 @@ export class MediaFeedPage implements OnInit {
       this.updateFeed(fileId);
     });
   }
+  @ViewChild('loadTrigger') loadTrigger: ElementRef;
 
   ngOnInit() {
     this.http
       .get(this.baseUrl + 'media/all')
       .subscribe((res: AllMediaResponse) => {
-        console.log(res);
         console.log('all files: ', res.file_count.total);
-        const fileCount = res.file_count.total;
-        this.getAllMedia(fileCount);
+        this.totalFilesOnServer = res.file_count.total;
       });
+
+    this.mediaProvider.getMediaInSegments(this.mediaArray.length).subscribe(
+      (res: MediaResponse[]) => {
+        console.log(res);
+        this.mediaArray = res;
+      },
+      err => {
+        console.log(err);
+      }
+    );
 
     // Fetch usernames from server
     this.mediaProvider.getAllUsers().subscribe(
@@ -85,6 +99,28 @@ export class MediaFeedPage implements OnInit {
     );
   }
 
+  ionViewDidLoad() {
+    const lazyLoad = target => {
+      const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            console.log('load trigger in view');
+            if (this.totalFilesOnServer === this.mediaArray.length) {
+              this.feedStatus = 'no more files on server';
+              observer.disconnect();
+            }
+            this.loadMorePosts();
+          }
+        });
+      });
+      io.observe(target);
+    };
+
+    setTimeout(_ => {
+      lazyLoad(this.loadTrigger.nativeElement);
+    }, 200);
+  }
+
   getAllMedia(limit: number) {
     const param = new HttpParams().set('limit', limit.toString());
     this.http
@@ -92,6 +128,14 @@ export class MediaFeedPage implements OnInit {
       .subscribe((res: MediaResponse[]) => {
         console.log(res);
         this.mediaArray = res;
+      });
+  }
+
+  loadMorePosts() {
+    this.mediaProvider
+      .getMediaInSegments(this.mediaArray.length)
+      .subscribe((res: MediaResponse[]) => {
+        this.mediaArray.push(...res);
       });
   }
 
@@ -114,17 +158,21 @@ export class MediaFeedPage implements OnInit {
   }
 
   getUsername(userId: number) {
-    return this.usersArr
-      .filter(user => user.user_id === userId)
-      .map(user => user.username)[0];
+    if (this.usersArr) {
+      return this.usersArr
+        .filter(user => user.user_id === userId)
+        .map(user => user.username)[0];
+    }
   }
 
   getProfilePic(userId: number) {
-    return this.getThumbnail(
-      this.profilePicArr
-        .filter(item => item.user_id === userId)
-        .map(item => item.filename)[0]
-    );
+    if (this.profilePicArr) {
+      return this.getThumbnail(
+        this.profilePicArr
+          .filter(item => item.user_id === userId)
+          .map(item => item.filename)[0]
+      );
+    }
   }
 
   showImage(imageUrl) {
@@ -139,5 +187,9 @@ export class MediaFeedPage implements OnInit {
 
   getThumbnail(filename: string) {
     if (filename !== undefined) return `${filename.split('.')[0]}-tn160.png`;
+  }
+
+  goToProfile(userId: number) {
+    this.app.getRootNav().push(UserPage, { 'userId': userId });
   }
 }

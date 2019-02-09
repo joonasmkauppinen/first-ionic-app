@@ -85,12 +85,31 @@ page-media-feed {
     }
   }
 
+  .load-trigger {
+    font-family: 'Rubik';
+    font-size: 14px;
+    text-align: center;
+    font-weight: 400;
+    color: #8B8BA0;
+    text-transform: uppercase;
+  }
+
   .toolbar-title {
     text-align: center;
   }
 
   .content-md {
-    background-color: #f8f8f8;
+    background-color: #f2f2f2;
   }
+
+  .toolbar-background-md {
+    background-color: white;
+  }
+
+  .toolbar-title-md {
+    color: #55546F;
+  }
+
+
 
 }
