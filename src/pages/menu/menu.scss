@@ -6,4 +6,14 @@ page-menu {
   .tabs-md .tabbar {
     background-color: white;
   }
+
+  .tabs-md .tab-button-icon {
+    color: rgba(96, 95, 120, 0.7);
+  }
+
+  .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+    color: #585abe;
+  }
+
+
 }

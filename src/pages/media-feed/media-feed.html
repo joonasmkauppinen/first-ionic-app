@@ -11,11 +11,12 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-
+  <ion-list style="margin-top: 24px; margin-bottom: 40px;">
     <div *ngFor="let item of mediaArray" class="feed-item">
       <img
-        *ngIf="item.mime_type !== 'image/gif'"
+        *ngIf="
+          item.mime_type === 'image/jpeg' || item.mime_type === 'image/png'
+        "
         [src]="mediaUrl + (item.filename | thumbnail: 'medium' | async)"
         (click)="showImage(item.filename)"
       />
@@ -24,14 +25,26 @@
         [src]="mediaUrl + item.filename"
         (click)="showImage(mediaUrl + item.filename)"
       />
+      <div *ngIf="item.mime_type === 'audio/mp3'" class="audio-media">
+        <audio controls [src]="mediaUrl + item.filename"></audio>
+      </div>
+
+      <div *ngIf="item.mime_type === 'video/mp4'" class="video-thumbnail">
+        <img
+          class="video-thumbnail"
+          [src]="mediaUrl + (item.filename | thumbnail: 'medium' | async)"
+        />
+      </div>
+
       <section class="post">
         <div class="post__user-info">
           <div
             class="post__profile-pic"
             [ngStyle]="{
               'background-image':
-                'url(' + mediaUrl + getProfilePic(item.user_id) + ')' }"
-                (click)="goToProfile(item.user_id)"
+                'url(' + mediaUrl + getProfilePic(item.user_id) + ')'
+            }"
+            (click)="goToProfile(item.user_id)"
           ></div>
           <p class="post__username">{{ getUsername(item.user_id) }}</p>
           <span class="post__timestamp">{{
@@ -52,7 +65,6 @@
     <div #loadTrigger class="load-trigger">
       <p>{{ feedStatus }}</p>
     </div>
-
   </ion-list>
 </ion-content>
 

@@ -1,35 +1,53 @@
 <ion-header>
   <ion-navbar>
     <ion-title align-title="center">profile</ion-title>
-    <ion-buttons end>
-      <button ion-button small color="danger" (click)="onLogout()">
-        LOGOUT
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <!-- <ion-item>
-    <ion-thumbnail>
-      <img *ngIf="avatarUrl !== 'loading'" [src]="mediaUrl + (avatarUrl | thumbnail: 'large' | async)">
-    </ion-thumbnail>
-  </ion-item> -->
+  <section class="profile-card">
+    <div class="profile-card__avatar-and-username">
+      <div
+        class="avatar"
+        [ngStyle]="{
+          'background-image':
+            'url(' + mediaUrl + (avatarUrl | thumbnail: 'small' | async) + ')'
+        }"
+      ></div>
 
-  <div
-    class="avatar"
-    *ngIf="avatarUrl !== 'loading'"
-    [ngStyle]="{ 'background-image': 'url(' + mediaUrl + (avatarUrl | thumbnail: 'small' | async ) + ')' }"
-  ></div>
+      <div class="username-wrapper">
+        <p class="label">{{ profileInfo?.username }}</p>
+        <p class="username">
+          {{ profileInfo?.full_name ? profileInfo?.full_name : 'No Full Name' }}
+        </p>
+      </div>
+    </div>
 
-  <h2>Hello {{ profileInfo?.full_name }}</h2>
-  <p>userid: {{ profileInfo?.user_id }}</p>
-  <p>username: {{ profileInfo?.username }}</p>
-  <p>email: {{ profileInfo?.email }}</p>
+    <div class="userid-wrapper">
+      <p class="label">userid</p>
+      <p>{{ profileInfo?.user_id }}</p>
+    </div>
 
-  <ion-list>
+    <div class="email-wrapper">
+      <p class="label">email</p>
+      <p>{{ profileInfo?.email }}</p>
+    </div>
+  </section>
+
+  <ul class="media-grid">
+    <li
+    class="grid-item"
+      *ngFor="let post of userMedia"
+      [ngStyle]="{
+        'background-image':
+          'url(' + mediaUrl + (post.filename | thumbnail: 'small' | async) + ')'
+      }"
+    ></li>
+  </ul>
+
+  <!-- <ion-list>
     <ion-item *ngFor="let item of userMedia">
       <img [src]="mediaUrl + (item.filename | thumbnail: 'small' | async)">
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 </ion-content>

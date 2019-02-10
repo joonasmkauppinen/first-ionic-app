@@ -17,7 +17,7 @@ export class UserPage implements OnInit {
   baseUrl = 'http://media.mw.metropolia.fi/wbma/';
   mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-  avatarUrl = 'loading';
+  avatarUrl = '';
 
   userId: number;
   profileInfo: SignupParams;
@@ -71,6 +71,7 @@ export class UserPage implements OnInit {
     this.mediaProvider.getUserMedia(userId).subscribe((res: MediaResponse[]) => {
       console.log(res);
       this.userMedia = res;
+      this.userMedia.reverse();
     },
     err => {
       console.log(err);

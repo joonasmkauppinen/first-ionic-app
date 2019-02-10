@@ -1,7 +1,44 @@
 page-media-feed {
 
-  img {
+  img, video {
     width: 100%;
+    border-radius: 16px;
+    box-shadow: 0px 8px 24px rgba(42, 0, 84, 0.24);
+  }
+
+  video::-webkit-media-controls-panel {
+    margin-bottom: 32px;
+  }
+
+  .video-thumbnail::before {
+    content: 'video';
+    display: block;
+    top: 16px;
+    left: 16px;
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    font-size: 12px;
+    font-family: 'Rubik';
+    font-weight: 400;
+    text-transform: uppercase;
+    position: absolute;
+    border-radius: 8px;
+    padding: 4px;
+  }
+
+  audio {
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  audio::-webkit-media-controls-panel {
+    background-color: #b9b7c3;
+  }
+
+  .audio-media {
+    width: 100%;
+    height: 150px;
+    background-color: #b9b7c3;
     border-radius: 16px;
     box-shadow: 0px 8px 24px rgba(42, 0, 84, 0.24);
   }
@@ -21,6 +58,7 @@ page-media-feed {
     margin-left: 16px;
     margin-right: 16px;
     overflow: auto;
+    border: 1px solid #e7e5f1;
 
     &__user-info {
       display: flex;
@@ -29,10 +67,10 @@ page-media-feed {
     }
 
     &__profile-pic {
-      width: 34px;
-      height: 34px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background-color: lightgrey;
+      background-color: #ada8bc;
       background-position: center center;
       background-size: cover;
     }
@@ -42,7 +80,7 @@ page-media-feed {
       margin-left: 8px;
       font-size: 16px;
       font-weight: normal;
-      color: #3E3E3E;
+      color: #3e3e3e;
     }
 
     &__username {
@@ -50,12 +88,12 @@ page-media-feed {
       margin-left: 8px;
       font-size: 12px;
       font-weight: 500;
-      color: #8B8BA0;
+      color: #8b8ba0;
     }
 
     &__timestamp {
       margin: 0;
-      color: #8B8BA0;
+      color: #8b8ba0;
       font-weight: 400;
       font-size: 12px;
       flex-grow: 1;
@@ -68,14 +106,14 @@ page-media-feed {
     }
 
     &__title {
-      color: #3E3E3E;
+      color: #3e3e3e;
       font-weight: normal;
       font-size: 20px;
       margin: 0;
     }
 
     &__description {
-      color: #8B8BA0;
+      color: #8b8ba0;
       font-weight: 400;
       font-size: 12px;
       margin: 0;
@@ -90,8 +128,21 @@ page-media-feed {
     font-size: 14px;
     text-align: center;
     font-weight: 400;
-    color: #8B8BA0;
+    color: #8b8ba0;
     text-transform: uppercase;
+  }
+
+  .ion-header,
+  .toolbar-md {
+    border-radius: 0px 0px 16px 16px;
+  }
+
+  .toolbar-md {
+    box-shadow: 0px 12px 40px rgba(42, 0, 84, 0.17);
+  }
+
+  .header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+    all: unset;
   }
 
   .toolbar-title {
@@ -107,9 +158,6 @@ page-media-feed {
   }
 
   .toolbar-title-md {
-    color: #55546F;
+    color: #55546f;
   }
-
-
-
 }
