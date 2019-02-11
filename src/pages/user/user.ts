@@ -7,6 +7,7 @@ import { SignupParams } from '../../app/interfaces/user-params';
 import { LoginPage } from '../login/login';
 import { MediaResponse } from '../../app/interfaces/media-response';
 import { MediaProvider } from '../../providers/media/media';
+import { MediaPage } from '../media/media';
 
 @IonicPage()
 @Component({
@@ -22,6 +23,8 @@ export class UserPage implements OnInit {
   userId: number;
   profileInfo: SignupParams;
   userMedia: MediaResponse[];
+
+  editEnabled = false;
 
   constructor(
     public navParams: NavParams,
@@ -76,5 +79,38 @@ export class UserPage implements OnInit {
     err => {
       console.log(err);
     });
+  }
+
+  onItemClick(post: MediaResponse, index: number) {
+    if (this.editEnabled) {
+      this.deletePost(post.file_id, index);
+    } else {
+      this.goToMediaPage(post);
+    }
+  }
+
+  deletePost(fileId: number, index) {
+    console.log('deleteing media...');
+    this.mediaProvider.deleteMedia(fileId).subscribe(res => {
+      console.log(res);
+      this.userMedia.splice(index, 1);
+    },
+    err => {
+      console.log(err);
+    });
+  }
+
+  goToMediaPage(post: MediaResponse) {
+    console.log('navigating to media page...');
+    this.app.getRootNav().push(MediaPage, { 'post': post });
+  }
+
+  toggleEdit() {
+    this.editEnabled = !this.editEnabled;
+    console.log('editEnabled: ', this.editEnabled);
+  }
+
+  isMyProfile() {
+    return this.userId === +localStorage.getItem('userId');
   }
 }

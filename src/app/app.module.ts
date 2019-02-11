@@ -24,6 +24,7 @@ import { PasswordValidator } from '../validators/password';
 import { FileUploadPage } from '../pages/file-upload/file-upload';
 import { TexttospeechProvider } from '../providers/texttospeech/texttospeech';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { MediaPage } from '../pages/media/media';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
     UserPage,
     MediaFeedPage,
     FileUploadPage,
-    ThumbnailPipe
+    ThumbnailPipe,
+    MediaPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
     MenuPage,
     UserPage,
     MediaFeedPage,
-    FileUploadPage
+    FileUploadPage,
+    MediaPage
   ],
   providers: [
     StatusBar,

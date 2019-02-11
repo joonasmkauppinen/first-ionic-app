@@ -19,6 +19,7 @@ import { ToastProvider } from '../../providers/toast/toast';
 import { TexttospeechProvider } from '../../providers/texttospeech/texttospeech';
 import { UsersResponse } from '../../app/interfaces/UsersResponse';
 import { UserPage } from '../user/user';
+import { MediaPage } from '../media/media';
 
 @IonicPage()
 @Component({
@@ -180,6 +181,10 @@ export class MediaFeedPage implements OnInit {
     this.photoViewer.show(fullUrl);
   }
 
+  goToMediaPage(post: MediaResponse) {
+    this.app.getRootNav().push(MediaPage, { 'post': post });
+  }
+
   speakTitle(text: string) {
     console.log('Saying: ', text);
     this.tts.speak(text);
@@ -190,6 +195,10 @@ export class MediaFeedPage implements OnInit {
   }
 
   goToProfile(userId: number) {
-    this.app.getRootNav().push(UserPage, { 'userId': userId });
+    if (userId === +localStorage.getItem('userId')) {
+      this.navController.parent.select(2);
+    } else {
+      this.app.getRootNav().push(UserPage, { 'userId': userId });
+    }
   }
 }

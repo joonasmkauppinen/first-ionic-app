@@ -48,4 +48,8 @@ export class MediaProvider {
   getUserInfo(userId: number) {
     return this.http.get(`${this.baseUrl}users/${userId}`, this.auth.httpOptions());
   }
+
+  deleteMedia(fileId: number) {
+    return this.http.delete(this.mediaUrl + fileId, this.auth.httpOptions());
+  }
 }

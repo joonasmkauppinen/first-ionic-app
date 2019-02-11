@@ -1,6 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title align-title="center">profile</ion-title>
+    <ion-buttons *ngIf="isMyProfile()" end>
+      <button *ngIf="editEnabled" ion-button (click)="toggleEdit()">done</button>
+      <button *ngIf="!editEnabled" ion-button icon-only (click)="toggleEdit()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -36,18 +42,43 @@
 
   <ul class="media-grid">
     <li
-    class="grid-item"
-      *ngFor="let post of userMedia"
-      [ngStyle]="{
-        'background-image':
-          'url(' + mediaUrl + (post.filename | thumbnail: 'small' | async) + ')'
-      }"
-    ></li>
+      class="grid-item"
+      *ngFor="let post of userMedia; let i = index;"
+      (click)="onItemClick(post, i)"
+    >
+
+      <div
+        *ngIf="
+          post.mime_type === 'image/jpeg' || post.mime_type === 'image/png'
+        "
+        [ngStyle]="{
+          'background-image':
+            'url(' +
+            mediaUrl +
+            (post.filename | thumbnail: 'small' | async) +
+            ')'
+        }"
+      ></div>
+      <div
+        *ngIf="post.mime_type === 'image/gif'"
+        [ngStyle]="{
+          'background-image': 'url(' + mediaUrl + post.filename + ')'
+        }"
+      ></div>
+      <div
+        *ngIf="post.mime_type === 'video/mp4'"
+        [ngStyle]="{
+          'background-image':
+            'url(' +
+            mediaUrl +
+            (post.filename | thumbnail: 'small' | async) +
+            ')'
+        }"
+        class="video-thumbnail"
+      ></div>
+      <div *ngIf="post.mime_type === 'audio/mp3'" class="audio-thumbnail"></div>
+      <ion-icon *ngIf="editEnabled" name="trash" class="delete-icon"></ion-icon>
+    </li>
   </ul>
 
-  <!-- <ion-list>
-    <ion-item *ngFor="let item of userMedia">
-      <img [src]="mediaUrl + (item.filename | thumbnail: 'small' | async)">
-    </ion-item>
-  </ion-list> -->
 </ion-content>

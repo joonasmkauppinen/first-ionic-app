@@ -1,0 +1,63 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>media</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <img
+    *ngIf="
+      postData.mime_type === 'image/jpeg' || postData.mime_type === 'image/png'
+    "
+    [src]="mediaUrl + (postData.filename | thumbnail: 'medium' | async)"
+  />
+  <img
+    *ngIf="postData.mime_type === 'image/gif'"
+    [src]="mediaUrl + postData.filename"
+  />
+  <div *ngIf="postData.mime_type === 'audio/mp3'" class="audio-media">
+    <audio controls [src]="mediaUrl + postData.filename"></audio>
+  </div>
+
+  <div *ngIf="postData.mime_type === 'video/mp4'" class="video-thumbnail">
+    <video
+      
+      [poster]="mediaUrl + (postData.filename | thumbnail: 'medium' | async)"
+      [src]="mediaUrl + postData.filename"
+      autoplay
+      controls
+      loop
+    ></video>
+  </div>
+
+
+    <section class="post">
+        <div class="post__user-info">
+          <!-- <div
+            class="post__profile-pic"
+            [ngStyle]="{
+              'background-image':
+                'url(' + mediaUrl + getProfilePic(postData.user_id) + ')'
+            }"
+            (click)="goToProfile(postData.user_id)"
+          ></div> -->
+          <!-- <p class="post__username">{{ getUsername(postData.user_id) }}</p> -->
+          <span class="post__timestamp">{{
+            postData.time_added | date: 'fullDate'
+          }}</span>
+        </div>
+
+        <div
+          class="post__info"
+        >
+          <p class="post__title">{{ postData.title }}</p>
+          <p class="post__description">{{ postData.description }}</p>
+        </div>
+      </section>
+
+</ion-content>
