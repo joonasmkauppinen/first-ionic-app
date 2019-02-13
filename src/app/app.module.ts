@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, Popover } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
@@ -25,6 +25,7 @@ import { FileUploadPage } from '../pages/file-upload/file-upload';
 import { TexttospeechProvider } from '../providers/texttospeech/texttospeech';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { MediaPage } from '../pages/media/media';
+import { PopoverPage } from '../pages/popover/popover';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MediaPage } from '../pages/media/media';
     MediaFeedPage,
     FileUploadPage,
     ThumbnailPipe,
-    MediaPage
+    MediaPage,
+    PopoverPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ import { MediaPage } from '../pages/media/media';
     UserPage,
     MediaFeedPage,
     FileUploadPage,
-    MediaPage
+    MediaPage,
+    PopoverPage
   ],
   providers: [
     StatusBar,

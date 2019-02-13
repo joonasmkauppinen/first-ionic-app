@@ -3,6 +3,12 @@
 
   <ion-navbar>
     <ion-title>media</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -20,13 +26,13 @@
     *ngIf="postData.mime_type === 'image/gif'"
     [src]="mediaUrl + postData.filename"
   />
-  <div *ngIf="postData.mime_type === 'audio/mp3'" class="audio-media">
+  <div *ngIf="postData.media_type === 'audio'" class="audio-media">
     <audio controls [src]="mediaUrl + postData.filename"></audio>
   </div>
 
-  <div *ngIf="postData.mime_type === 'video/mp4'" class="video-thumbnail">
+  <div *ngIf="postData.media_type === 'video'" class="video-thumbnail">
     <video
-      
+
       [poster]="mediaUrl + (postData.filename | thumbnail: 'medium' | async)"
       [src]="mediaUrl + postData.filename"
       autoplay

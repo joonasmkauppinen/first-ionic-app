@@ -63,7 +63,7 @@ export class FileUploadPage {
     // postData.append('title', form.value.title);
     // postData.append('description', form.value.description);
 
-    const blobConversion = () => {
+    const blobConversion = async () => {
       return new Promise(resolve => {
         this.imageCanvas.nativeElement.toBlob(blob => {
           postData.append('file', blob, 'imagefile.jpg');
@@ -85,26 +85,27 @@ export class FileUploadPage {
         content: 'Finishing up...'
       });
 
-      uploading.present();
+      uploading.present().catch(err => console.log(err));
 
       this.mediaProvider.uploadMedia(postData).subscribe(
         res => {
           console.log('Success response form server: ', res);
-          uploading.dismiss();
-          finishing.present();
+          uploading.dismiss().catch(err => console.log(err));
+          finishing.present().catch(err => console.log(err));
           setTimeout(() => {
-            finishing.dismiss();
+            finishing.dismiss().catch(err => console.log(err));
             this.event.publish('new-upload', res['file_id']);
-            this.navCtrl.pop();
+            this.navCtrl.pop().catch(err => console.log(err));
           }, 2000);
         },
         err => {
           console.log(err);
-          uploading.dismiss();
+          uploading.dismiss().catch(error => console.log(error));
           this.toast.show(err.message);
         }
       );
-    });
+    })
+    .catch(err => console.log(err));
   }
 
   clearPreview() {

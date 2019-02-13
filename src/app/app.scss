@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -15,4 +14,38 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+.popover-md .popover-content {
+  width: 120px;
+  border-radius: 8px;
+  top: 40px !important;
+  right: 20px !important;
+  left: unset !important;
+}
 
+.ion-header,
+.toolbar-md {
+  border-radius: 0px 0px 16px 16px;
+}
+
+.toolbar-md {
+  box-shadow: 0px 12px 40px rgba(42, 0, 84, 0.17);
+}
+
+.content-md {
+  background-color: #f2f2f2;
+}
+
+.toolbar-background-md {
+  background-color: white;
+}
+
+.toolbar-title-md {
+  color: #55546f;
+}
+
+.header-md::after,
+.tabs-md[tabsPlacement='top'] > .tabbar::after,
+.footer-md::before,
+.tabs-md[tabsPlacement='bottom'] > .tabbar::before {
+  all: unset;
+}

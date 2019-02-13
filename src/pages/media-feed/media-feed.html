@@ -42,7 +42,7 @@
       ></div>
 
       <div
-        *ngIf="item.mime_type === 'audio/mp3'"
+        *ngIf="item.media_type === 'audio'"
         class="audio-media"
         (click)="goToMediaPage(item)"
       >
@@ -50,7 +50,7 @@
       </div>
 
       <div
-        *ngIf="item.mime_type === 'video/mp4'"
+        *ngIf="item.media_type === 'video'"
         class="video-thumbnail post-image"
         [ngStyle]="{
           'background-image':

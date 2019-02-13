@@ -1,12 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title align-title="center">profile</ion-title>
-    <ion-buttons *ngIf="isMyProfile()" end>
+    <!-- <ion-buttons *ngIf="isMyProfile()" end>
       <button *ngIf="editEnabled" ion-button (click)="toggleEdit()">done</button>
       <button *ngIf="!editEnabled" ion-button icon-only (click)="toggleEdit()">
         <ion-icon name="create"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 
@@ -66,7 +66,7 @@
         }"
       ></div>
       <div
-        *ngIf="post.mime_type === 'video/mp4'"
+        *ngIf="post.media_type === 'video'"
         [ngStyle]="{
           'background-image':
             'url(' +
@@ -76,8 +76,8 @@
         }"
         class="video-thumbnail"
       ></div>
-      <div *ngIf="post.mime_type === 'audio/mp3'" class="audio-thumbnail"></div>
-      <ion-icon *ngIf="editEnabled" name="trash" class="delete-icon"></ion-icon>
+      <div *ngIf="post.media_type === 'audio'" class="audio-thumbnail"></div>
+      <!-- <ion-icon *ngIf="editEnabled" name="trash" class="delete-icon"></ion-icon> -->
     </li>
   </ul>
 
