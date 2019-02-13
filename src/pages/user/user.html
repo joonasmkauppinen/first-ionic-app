@@ -1,12 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title align-title="center">profile</ion-title>
-    <!-- <ion-buttons *ngIf="isMyProfile()" end>
-      <button *ngIf="editEnabled" ion-button (click)="toggleEdit()">done</button>
-      <button *ngIf="!editEnabled" ion-button icon-only (click)="toggleEdit()">
-        <ion-icon name="create"></ion-icon>
+    <ion-title>Profile</ion-title>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
       </button>
-    </ion-buttons> -->
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -43,10 +42,9 @@
   <ul class="media-grid">
     <li
       class="grid-item"
-      *ngFor="let post of userMedia; let i = index;"
+      *ngFor="let post of userMedia; let i = index"
       (click)="onItemClick(post, i)"
     >
-
       <div
         *ngIf="
           post.mime_type === 'image/jpeg' || post.mime_type === 'image/png'
@@ -80,5 +78,4 @@
       <!-- <ion-icon *ngIf="editEnabled" name="trash" class="delete-icon"></ion-icon> -->
     </li>
   </ul>
-
 </ion-content>
