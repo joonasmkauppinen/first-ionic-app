@@ -52,4 +52,8 @@ export class MediaProvider {
   deleteMedia(fileId: number) {
     return this.http.delete(this.mediaUrl + fileId, this.auth.httpOptions());
   }
+
+  updatePostInfo(postId: number, body: {}) {
+    return this.http.put(this.mediaUrl + postId, body, this.auth.httpOptions());
+  }
 }

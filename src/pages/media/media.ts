@@ -4,6 +4,7 @@ import { MediaResponse } from '../../app/interfaces/media-response';
 import { UserPage } from '../user/user';
 import { PopoverPage } from '../popover/popover';
 import { MediaProvider } from '../../providers/media/media';
+import { EditPostPage } from '../edit-post/edit-post';
 
 /**
  * Generated class for the MediaPage page.
@@ -20,8 +21,10 @@ const POPOVER_DELETE = 'delete';
   templateUrl: 'media.html'
 })
 export class MediaPage {
+
   mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
+  myUserId: number;
   postData: MediaResponse;
 
   eventPublished = false;
@@ -35,6 +38,7 @@ export class MediaPage {
     private spinner: LoadingController,
     private event: Events
   ) {
+    this.myUserId = +localStorage.getItem('userId');
     this.postData = this.navParams.get('post');
   }
 
@@ -66,7 +70,7 @@ export class MediaPage {
 
       switch (data) {
         case POPOVER_EDIT: {
-          console.log('TODO: edit post');
+          this.navCtrl.push(EditPostPage, { 'post': this.postData }).catch(err => console.log(err));
           break;
         }
         case POPOVER_DELETE: {

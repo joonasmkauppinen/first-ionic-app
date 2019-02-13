@@ -1,12 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>media</ion-title>
-
-    <ion-buttons end *ngIf="postData.user_id === myUserId">
-      <button ion-button icon-only (click)="showPopover($event)">
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title>Edit Info</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -36,24 +30,35 @@
   </div>
 
   <section class="post">
-    <div class="post__user-info">
-      <!-- <div
-            class="post__profile-pic"
-            [ngStyle]="{
-              'background-image':
-                'url(' + mediaUrl + getProfilePic(postData.user_id) + ')'
-            }"
-            (click)="goToProfile(postData.user_id)"
-          ></div> -->
-      <!-- <p class="post__username">{{ getUsername(postData.user_id) }}</p> -->
-      <span class="post__timestamp">{{
-        postData.time_added | date: 'fullDate'
-      }}</span>
-    </div>
-
     <div class="post__info">
-      <p class="post__title">{{ postData.title }}</p>
-      <p class="post__description">{{ postData.description }}</p>
+      <ion-item>
+        <ion-label floating>title</ion-label>
+        <ion-input
+          [(ngModel)]="newPostInfo.title"
+          type="text"
+          (input)="checkIsInfoChanged()"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>descritpion</ion-label>
+        <ion-input
+          [(ngModel)]="newPostInfo.description"
+          type="text"
+          (input)="checkIsInfoChanged()"
+        ></ion-input>
+      </ion-item>
+
+      <button
+        ion-button
+        block
+        round
+        margin-top
+        [disabled]="!infoChanged"
+        (click)="updatePostInfo()"
+      >
+        update
+      </button>
     </div>
   </section>
 </ion-content>
