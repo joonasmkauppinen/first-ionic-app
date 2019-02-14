@@ -31,7 +31,7 @@
       ></ion-textarea>
     </ion-item>
 
-    <!-- <input
+    <input
       type="file"
       #file
       id="file"
@@ -45,8 +45,8 @@
     />
     <label margin-top ion-button round block outline for="file"
       >choose media</label
-    > -->
-    <button
+    >
+    <!-- <button
       type="button"
       ion-button
       round
@@ -56,7 +56,7 @@
       (click)="getFile()"
     >
       choose media
-    </button>
+    </button> -->
   </form>
 
   <canvas
@@ -93,7 +93,7 @@
     controls
     autoplay
     [src]="selectedFile.preview"
-    *ngIf="selectedFile.preview && selectedFile.info['type'] === 'audio/mp3'"
+    *ngIf="selectedFile.preview && selectedFile.info === 'audio/mp3'"
     style="width: 100%"
     margin-top
     margin-bottom

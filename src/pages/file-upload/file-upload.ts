@@ -75,37 +75,50 @@ export class FileUploadPage {
       });
     };
 
-    blobConversion().then(_ => {
-      console.log('Uploading data...');
+    if (
+      this.selectedFile.info === 'image/jpeg' ||
+      this.selectedFile.info === 'image/png'
+    ) {
+      blobConversion()
+        .then(_ => this.uploadMedia(postData))
+        .catch(err => console.log(err));
+    } else {
+      postData.append('title', form.value.title);
+      postData.append('description', form.value.description);
+      postData.append('file', this.fileInput.nativeElement.files[0]);
+      this.uploadMedia(postData);
+    }
+  }
 
-      const uploading = this.spinner.create({
-        content: 'Uploading media...'
-      });
-      const finishing = this.spinner.create({
-        content: 'Finishing up...'
-      });
+  uploadMedia(postData: FormData) {
+    console.log('Uploading data...');
 
-      uploading.present().catch(err => console.log(err));
+    const uploading = this.spinner.create({
+      content: 'Uploading media...'
+    });
+    const finishing = this.spinner.create({
+      content: 'Finishing up...'
+    });
 
-      this.mediaProvider.uploadMedia(postData).subscribe(
-        res => {
-          console.log('Success response form server: ', res);
-          uploading.dismiss().catch(err => console.log(err));
-          finishing.present().catch(err => console.log(err));
-          setTimeout(() => {
-            finishing.dismiss().catch(err => console.log(err));
-            this.event.publish('new-upload', res['file_id']);
-            this.navCtrl.pop().catch(err => console.log(err));
-          }, 2000);
-        },
-        err => {
-          console.log(err);
-          uploading.dismiss().catch(error => console.log(error));
-          this.toast.show(err.message);
-        }
-      );
-    })
-    .catch(err => console.log(err));
+    uploading.present().catch(err => console.log(err));
+
+    this.mediaProvider.uploadMedia(postData).subscribe(
+      res => {
+        console.log('Success response form server: ', res);
+        uploading.dismiss().catch(err => console.log(err));
+        finishing.present().catch(err => console.log(err));
+        setTimeout(() => {
+          finishing.dismiss().catch(err => console.log(err));
+          this.event.publish('new-upload', res['file_id']);
+          this.navCtrl.pop().catch(err => console.log(err));
+        }, 2000);
+      },
+      err => {
+        console.log(err);
+        uploading.dismiss().catch(error => console.log(error));
+        this.toast.show(err.message);
+      }
+    );
   }
 
   clearPreview() {
@@ -122,25 +135,22 @@ export class FileUploadPage {
     console.log('File input changed');
 
     const data = inputEvent.target.files[0];
+    console.log('data: ', data);
 
     if (data) {
+      this.selectedFile.info = data.type;
+
       const reader = new FileReader();
-      this.image = new Image();
       reader.readAsDataURL(data);
       reader.onload = (event: any) => {
         this.selectedFile.preview = event.target.result;
-        this.image.src = event.target.result;
-        this.image.onload = () => {
-          setTimeout(() => {
-            this.imageCanvas.nativeElement.width = this.image.width;
-            this.imageCanvas.nativeElement.height = this.image.height;
-            this.canvasCtx = this.imageCanvas.nativeElement.getContext('2d');
-            this.canvasCtx.drawImage(this.image, 0, 0);
-          }, 200);
-        };
+        if (
+          this.selectedFile.info === 'image/jpeg' ||
+          this.selectedFile.info === 'image/png'
+        ) {
+          this.setupCanvas();
+        }
       };
-
-      this.selectedFile.info = data;
     } else {
       this.canvasCtx = null;
       this.selectedFile.preview = null;
@@ -148,6 +158,19 @@ export class FileUploadPage {
     }
 
     console.log('Selected file: ', this.selectedFile);
+  }
+
+  setupCanvas() {
+    this.image = new Image();
+    this.image.src = this.selectedFile.preview;
+    this.image.onload = () => {
+      setTimeout(() => {
+        this.imageCanvas.nativeElement.width = this.image.width;
+        this.imageCanvas.nativeElement.height = this.image.height;
+        this.canvasCtx = this.imageCanvas.nativeElement.getContext('2d');
+        this.canvasCtx.drawImage(this.image, 0, 0);
+      }, 200);
+    };
   }
 
   updatePreviewWithChooser(file) {

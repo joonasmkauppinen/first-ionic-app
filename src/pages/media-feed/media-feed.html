@@ -39,8 +39,7 @@
         [ngStyle]="{
           'background-image':
             'url(' +
-            mediaUrl +
-            (item.filename | thumbnail: 'medium' | async) +
+            mediaUrl + item.filename +
             ')'
         }"
         (click)="goToMediaPage(item)"
