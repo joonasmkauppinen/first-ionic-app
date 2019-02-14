@@ -1,6 +1,6 @@
 <ion-menu [content]="mycontent">
   <ion-content>
-    <ion-item>
+    <ion-item (click)="onLogout()" menuClose>
       <ion-icon name="exit" item-start></ion-icon>
       logout
     </ion-item>

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { MenuPage } from '../pages/menu/menu';
 import { Cordova } from '@ionic-native/core';
+import { AuthProvider } from '../providers/auth/auth';
 
 
 @Component({
@@ -16,7 +17,9 @@ export class MyApp {
   constructor(
     platform: Platform,
     statusBar: StatusBar,
-    splashScreen: SplashScreen
+    splashScreen: SplashScreen,
+    private auth: AuthProvider,
+    private app: App
   ) {
     if (localStorage.getItem('token')) {
       this.rootPage = MenuPage;
@@ -34,5 +37,10 @@ export class MyApp {
     .catch(err => {
       console.log(err);
     });
+  }
+
+  onLogout() {
+    this.auth.logout();
+    this.app.getRootNav().setRoot(LoginPage);
   }
 }
