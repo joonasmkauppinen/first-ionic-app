@@ -27,6 +27,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { MediaPage } from '../pages/media/media';
 import { PopoverPage } from '../pages/popover/popover';
 import { EditPostPage } from '../pages/edit-post/edit-post';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { EditPostPage } from '../pages/edit-post/edit-post';
     ThumbnailPipe,
     MediaPage,
     PopoverPage,
-    EditPostPage
+    EditPostPage,
+    EditProfilePage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ import { EditPostPage } from '../pages/edit-post/edit-post';
     FileUploadPage,
     MediaPage,
     PopoverPage,
-    EditPostPage
+    EditPostPage,
+    EditProfilePage
   ],
   providers: [
     StatusBar,

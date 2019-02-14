@@ -1,0 +1,20 @@
+page-edit-profile {
+
+  .post {
+    position: relative;
+    background-color: white;
+    border-radius: 16px;
+    font-family: 'Rubik', sans-serif;
+    box-shadow: 0px 16px 40px rgba(42, 0, 84, 0.08);
+    margin-top: 16px;
+    margin-bottom: 56px;
+    overflow: auto;
+    border: 1px solid #e7e5f1;
+  }
+
+  .my-button {
+    box-sizing: content-box;
+    margin: 48px 16px 32px;
+  }
+
+}

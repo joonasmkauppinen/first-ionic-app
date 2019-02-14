@@ -1,0 +1,39 @@
+<!--
+  Generated template for the EditProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Edit profile info</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <section class="post">
+    <div class="post__info">
+
+      <ion-item>
+        <ion-label floating>full name</ion-label>
+        <ion-input type="text" [(ngModel)]="userInfo.full_name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>username</ion-label>
+        <ion-input type="text" [(ngModel)]="userInfo.username"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>email</ion-label>
+        <ion-input type="text" [(ngModel)]="userInfo.email"></ion-input>
+      </ion-item>
+
+      <div class="my-button">
+        <button ion-button block round (click)="updateProfileInfo()">
+          update
+        </button>
+      </div>
+    </div>
+  </section>
+</ion-content>

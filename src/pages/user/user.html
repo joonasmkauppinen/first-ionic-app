@@ -1,9 +1,16 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Profile</ion-title>
+
     <ion-buttons left>
       <button ion-button icon-only menuToggle>
         <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons right>
+      <button ion-button icon-only (click)="goToEditProfile()">
+        <ion-icon name="settings"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>

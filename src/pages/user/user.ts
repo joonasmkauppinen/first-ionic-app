@@ -8,6 +8,8 @@ import { LoginPage } from '../login/login';
 import { MediaResponse } from '../../app/interfaces/media-response';
 import { MediaProvider } from '../../providers/media/media';
 import { MediaPage } from '../media/media';
+import { EditProfilePage } from '../edit-profile/edit-profile';
+import { ProfileUpdateEvent } from '../../app/interfaces/ProfileUpdateEvent';
 
 @IonicPage()
 @Component({
@@ -28,6 +30,7 @@ export class UserPage implements OnInit {
 
   constructor(
     public navParams: NavParams,
+    public navCtrl: NavController,
     private http: HttpClient,
     private auth: AuthProvider,
     private toast: ToastProvider,
@@ -109,6 +112,21 @@ export class UserPage implements OnInit {
   goToMediaPage(post: MediaResponse) {
     console.log('navigating to media page...');
     this.app.getRootNav().push(MediaPage, { 'post': post });
+  }
+
+  goToEditProfile() {
+
+    console.log('subscribing to profile-update');
+    this.event.subscribe('profile-update', (update: ProfileUpdateEvent) => {
+      if (update.wasUpdated) {
+        console.log('setting new profile info...');
+        this.profileInfo = update.info;
+      }
+      console.log('unsubscribing post-update');
+      this.event.unsubscribe('profile-update');
+    });
+
+    this.app.getRootNav().push(EditProfilePage, { 'userInfo': this.profileInfo });
   }
 
   isMyProfile() {

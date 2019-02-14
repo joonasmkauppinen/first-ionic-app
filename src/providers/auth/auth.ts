@@ -43,4 +43,8 @@ export class AuthProvider {
     const checkUsernameUrl = `${this.baseUrl}users/username/${username}`;
     return this.http.get(checkUsernameUrl);
   }
+
+  updateProfileInfo(newProfileInfo: SignupParams) {
+    return this.http.put(this.baseUrl + 'users', newProfileInfo, this.httpOptions());
+  }
 }
