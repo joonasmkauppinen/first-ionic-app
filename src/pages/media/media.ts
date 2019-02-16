@@ -5,6 +5,7 @@ import { UserPage } from '../user/user';
 import { PopoverPage } from '../popover/popover';
 import { MediaProvider } from '../../providers/media/media';
 import { EditPostPage } from '../edit-post/edit-post';
+import { TagsResponse } from '../../app/interfaces/TagsResponse';
 
 /**
  * Generated class for the MediaPage page.
@@ -26,6 +27,7 @@ export class MediaPage {
 
   myUserId: number;
   postData: MediaResponse;
+  postTags: TagsResponse[];
 
   eventPublished = false;
 
@@ -40,6 +42,11 @@ export class MediaPage {
   ) {
     this.myUserId = +localStorage.getItem('userId');
     this.postData = this.navParams.get('post');
+    this.mediaProvider.getTagsByFileId(this.postData.file_id).subscribe((res: TagsResponse[]) => {
+      console.log(res);
+      this.postTags = res;
+    },
+    err => console.log(err));
   }
 
   ionViewDidLoad() {
@@ -56,6 +63,10 @@ export class MediaPage {
 
   getProfilePic(userId: number) {
     return this.mediaProvider.getProfilePicById(userId);
+  }
+
+  getPostTags(fileId: number) {
+
   }
 
   goToProfile(userId: number) {

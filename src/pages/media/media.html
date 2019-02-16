@@ -57,5 +57,8 @@
       <p class="post__title">{{ postData.title }}</p>
       <p class="post__description">{{ postData.description }}</p>
     </div>
+    <ul class="tags-list">
+      <li *ngFor="let tag of postTags">{{ tag.tag }}</li>
+    </ul>
   </section>
 </ion-content>

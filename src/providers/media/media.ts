@@ -103,6 +103,10 @@ export class MediaProvider {
     }
   }
 
+  getTagsByFileId(fileId: number) {
+    return this.http.get(this.baseUrl + 'tags/file/' + fileId);
+  }
+
   private getThumbnail(filename: string) {
     if (filename !== undefined) return `${filename.split('.')[0]}-tn160.png`;
   }
