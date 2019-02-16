@@ -37,15 +37,17 @@
 
   <section class="post">
     <div class="post__user-info">
-      <!-- <div
-            class="post__profile-pic"
-            [ngStyle]="{
-              'background-image':
-                'url(' + mediaUrl + getProfilePic(postData.user_id) + ')'
-            }"
-            (click)="goToProfile(postData.user_id)"
-          ></div> -->
-      <!-- <p class="post__username">{{ getUsername(postData.user_id) }}</p> -->
+      <div
+        class="post__profile-pic"
+        [ngStyle]="{
+          'background-image':
+            'url(' + mediaUrl + getProfilePic(postData.user_id) + ')'
+        }"
+        (click)="goToProfile(postData.user_id)"
+      ></div>
+      <p class="post__username" (click)="goToProfile(postData.user_id)">
+        {{ getUsername(postData.user_id) }}
+      </p>
       <span class="post__timestamp">{{
         postData.time_added | date: 'fullDate'
       }}</span>

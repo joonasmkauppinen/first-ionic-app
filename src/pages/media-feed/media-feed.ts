@@ -77,27 +77,27 @@ export class MediaFeedPage implements OnInit {
     );
 
     // Fetch usernames from server
-    this.mediaProvider.getAllUsers().subscribe(
-      (res: UsersResponse[]) => {
-        console.log(res);
-        this.usersArr = res;
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    // this.mediaProvider.getAllUsers().subscribe(
+    //   (res: UsersResponse[]) => {
+    //     console.log(res);
+    //     this.usersArr = res;
+    //   },
+    //   err => {
+    //     console.log(err);
+    //   }
+    // );
 
     // Fetch profile pics from server
-    this.mediaProvider.getMediaByTag('profile').subscribe(
-      (res: MediaResponse[]) => {
-        console.log(this.profilePicArr);
-        console.log(res);
-        this.profilePicArr = res;
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    // this.mediaProvider.getMediaByTag('profile').subscribe(
+    //   (res: MediaResponse[]) => {
+    //     console.log(this.profilePicArr);
+    //     console.log(res);
+    //     this.profilePicArr = res;
+    //   },
+    //   err => {
+    //     console.log(err);
+    //   }
+    // );
   }
 
   ionViewDidLoad() {
@@ -159,21 +159,11 @@ export class MediaFeedPage implements OnInit {
   }
 
   getUsername(userId: number) {
-    if (this.usersArr) {
-      return this.usersArr
-        .filter(user => user.user_id === userId)
-        .map(user => user.username)[0];
-    }
+    return this.mediaProvider.getUsernameById(userId);
   }
 
   getProfilePic(userId: number) {
-    if (this.profilePicArr) {
-      return this.getThumbnail(
-        this.profilePicArr
-          .filter(item => item.user_id === userId)
-          .map(item => item.filename)[0]
-      );
-    }
+    return this.mediaProvider.getProfilePicById(userId);
   }
 
   showImage(imageUrl) {
@@ -182,7 +172,7 @@ export class MediaFeedPage implements OnInit {
   }
 
   goToMediaPage(post: MediaResponse) {
-    this.app.getRootNav().push(MediaPage, { 'post': post });
+    this.app.getRootNav().push(MediaPage, { post: post });
   }
 
   speakTitle(text: string) {
@@ -190,15 +180,13 @@ export class MediaFeedPage implements OnInit {
     this.tts.speak(text);
   }
 
-  getThumbnail(filename: string) {
-    if (filename !== undefined) return `${filename.split('.')[0]}-tn160.png`;
-  }
+
 
   goToProfile(userId: number) {
     if (userId === +localStorage.getItem('userId')) {
       this.navController.parent.select(2);
     } else {
-      this.app.getRootNav().push(UserPage, { 'userId': userId });
+      this.app.getRootNav().push(UserPage, { userId: userId });
     }
   }
 }

@@ -50,6 +50,14 @@ export class MediaPage {
     if (!this.eventPublished) this.event.publish('post-deleted', false);
   }
 
+  getUsername(userId: number) {
+    return this.mediaProvider.getUsernameById(userId);
+  }
+
+  getProfilePic(userId: number) {
+    return this.mediaProvider.getProfilePicById(userId);
+  }
+
   goToProfile(userId: number) {
     this.navCtrl
       .push(UserPage, { 'userId': userId })

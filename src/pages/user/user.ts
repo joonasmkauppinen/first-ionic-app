@@ -20,6 +20,8 @@ export class UserPage implements OnInit {
   baseUrl = 'http://media.mw.metropolia.fi/wbma/';
   mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
+  myUserId: number;
+
   avatarUrl = '';
 
   userId: number;
@@ -37,7 +39,9 @@ export class UserPage implements OnInit {
     private mediaProvider: MediaProvider,
     private app: App,
     private event: Events
-  ) {}
+  ) {
+    this.myUserId = +localStorage.getItem('userId');
+  }
 
   ngOnInit() {
     this.userId =

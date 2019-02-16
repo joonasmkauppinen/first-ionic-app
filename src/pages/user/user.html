@@ -8,7 +8,7 @@
       </button>
     </ion-buttons>
 
-    <ion-buttons right>
+    <ion-buttons right *ngIf="profileInfo?.user_id === myUserId">
       <button ion-button icon-only (click)="goToEditProfile()">
         <ion-icon name="settings"></ion-icon>
       </button>
